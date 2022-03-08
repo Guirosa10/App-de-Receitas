@@ -1,10 +1,10 @@
-import React, { Component } from 'react'
+import React, { Component } from 'react';
 
-export default class input extends Component {
+export default class Input extends Component {
   render() {
-    this.props = { type, datatestid }
+    this.props = { type, datatestid };
     return (
       <div>input</div>
-    )
+    );
   }
 }
