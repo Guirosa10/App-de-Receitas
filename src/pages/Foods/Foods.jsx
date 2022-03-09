@@ -1,6 +1,7 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import React, { useEffect, useState } from 'react';
 import { mealsAPI } from '../../services/api';
+import Header from '../../components/Header/Header';
 
 export default function Foods() {
   const [foods, setFoods] = useState([]);
@@ -15,7 +16,6 @@ export default function Foods() {
     console.log(foods);
   }, []);
   return (
-
-    <div>Foods asdasdasdasdasd</div>
+    <Header title="Foods" />
   );
 }
