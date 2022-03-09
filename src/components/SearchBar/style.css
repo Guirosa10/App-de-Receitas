@@ -1,0 +1,23 @@
+.search-form {
+    display: flex;
+    flex-direction: row;
+    text-align: center;
+    align-self: center;
+    padding-left: 25%;
+}
+
+.search-form-div {
+    text-align: center;
+    display: flex;
+    flex-direction: row;
+}
+
+input {
+    margin: 15px;
+    text-align: center;
+    align-self: center;
+}
+
+body {
+    background-color: green;
+}

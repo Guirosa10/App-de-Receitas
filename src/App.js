@@ -1,4 +1,3 @@
-/* eslint-disable max-len */
 import React from 'react';
 import './App.css';
 import { BrowserRouter, Route, Switch } from 'react-router-dom';
@@ -16,6 +15,7 @@ import ExploreDrinksIngredients from './pages/ExploreDrinks/ExploreDrinksIngredi
 import DoneRecipes from './pages/DoneRecipes/DoneRecipes';
 import FavoriteRecipes from './pages/FavoriteRecipes/FavoriteRecipes';
 import ExploreFoodsNacionalites from './pages/ExploreFoodsNacionalites/ExploreFoodsNacionalites';
+
 
 function App() {
   return (
@@ -36,6 +36,7 @@ function App() {
           <Route exact path="/explore/foods/nationalities" component={ ExploreFoodsNacionalites } />
           <Route exact path="/done-recipes" component={ DoneRecipes } />
           <Route exact path="/favorite-recipes" component={ FavoriteRecipes } />
+
         </Switch>
       </BrowserRouter>
     </Provider>
