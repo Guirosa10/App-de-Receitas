@@ -1,7 +1,8 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import React, { useEffect, useState } from 'react';
 import Footer from '../../components/Footer/Footer';
-import { mealsAPI } from '../../services/api';
+import { mealsAPI } from '../../services/mealsAPI';
+import Header from '../../components/Header/Header';
 
 export default function Foods() {
   const [foods, setFoods] = useState([]);
@@ -17,7 +18,7 @@ export default function Foods() {
   }, []);
   return (
     <div>
-      <p>Foods asdasdasdasdasd</p>
+      <Header title="Foods" />
       <Footer />
     </div>
   );

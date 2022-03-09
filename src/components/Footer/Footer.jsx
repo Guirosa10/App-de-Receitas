@@ -7,39 +7,41 @@ import drinkIcon from '../../images/drinkIcon.svg';
 export default function Footer() {
   return (
     <footer data-testid="footer">
-      <Link
-        to="/drinks"
-        data-testid="drinks-bottom-btn"
-      >
-        <img
-          src={ drinkIcon }
-          alt="Drinks"
-          height="68"
-          width="68"
-        />
-      </Link>
-      <Link
-        to="/explore"
-        data-testid="explore-bottom-btn"
-      >
-        <img
-          src={ exploreIcon }
-          alt="Explore"
-          height="68"
-          width="68"
-        />
-      </Link>
-      <Link
-        to="/foods"
-        data-testid="food-bottom-btn"
-      >
-        <img
-          src={ mealIcon }
-          alt="Foods"
-          height="70"
-          width="70"
-        />
-      </Link>
+      <div>
+        <Link
+          to="/drinks"
+        >
+          <img
+            src={ drinkIcon }
+            alt="Drinks"
+            data-testid="drinks-bottom-btn"
+            height="68"
+            width="68"
+          />
+        </Link>
+        <Link
+          to="/explore"
+        >
+          <img
+            src={ exploreIcon }
+            alt="Explore"
+            data-testid="explore-bottom-btn"
+            height="68"
+            width="68"
+          />
+        </Link>
+        <Link
+          to="/foods"
+        >
+          <img
+            src={ mealIcon }
+            alt="Foods"
+            data-testid="food-bottom-btn"
+            height="70"
+            width="70"
+          />
+        </Link>
+      </div>
     </footer>
   );
 }

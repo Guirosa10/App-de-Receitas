@@ -4,7 +4,8 @@ import AppContext from '../Context/AppContext';
 
 function Provider({ children }) {
   const [login, setLogin] = useState('');
-  const value = { setLogin, login };
+  const [searchRender, setSearchRender] = useState(true);
+  const value = { setLogin, login, searchRender, setSearchRender };
 
   return (
     <main>
