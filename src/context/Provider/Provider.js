@@ -4,7 +4,11 @@ import AppContext from '../Context/AppContext';
 
 function Provider({ children }) {
   const [login, setLogin] = useState('');
-  const value = { setLogin, login };
+
+  const value = {
+    login,
+    setLogin,
+  };
 
   return (
     <main>

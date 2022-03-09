@@ -5,6 +5,7 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import Login from './pages/Login/Login';
 import Provider from './context/Provider/Provider';
 import Foods from './pages/Foods/Foods';
+import Drinks from './pages/Drinks/Drinks';
 
 function App() {
   return (
@@ -13,7 +14,7 @@ function App() {
         <Switch>
           <Route exact path="/" component={ Login } />
           <Route path="/foods" component={ Foods } />
-          {/* <Route path="/drinks" component={ }/> */}
+          <Route path="/drinks" component={ Drinks } />
           {/* <Route path="/foods/:id" component={ } />
               <Route path="/drinks/:id" component={ } />
               <Route path="/explore" component={ } />
