@@ -1,5 +1,6 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import React, { useEffect, useState } from 'react';
+import Footer from '../../components/Footer/Footer';
 import { mealsAPI } from '../../services/api';
 
 export default function Foods() {
@@ -15,7 +16,9 @@ export default function Foods() {
     console.log(foods);
   }, []);
   return (
-
-    <div>Foods asdasdasdasdasd</div>
+    <div>
+      <p>Foods asdasdasdasdasd</p>
+      <Footer />
+    </div>
   );
 }
