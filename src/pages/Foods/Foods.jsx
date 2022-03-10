@@ -5,6 +5,7 @@ import AppContext from '../../context/Context/AppContext';
 import Header from '../../components/Header/Header';
 import Recipes from '../../components/Recipes/Recipes';
 import ButtonCategories from '../../components/ButtonCategories/ButtonCategories';
+import Footer from '../../components/Footer/Footer';
 
 export default function Foods() {
   const { meals, setMeals, setIsFood } = useContext(AppContext);
@@ -32,6 +33,7 @@ export default function Foods() {
       <Header title="Foods" />
       <ButtonCategories list={ mealsList } />
       <Recipes data={ meals } />
+      <Footer />
     </main>
   );
 }

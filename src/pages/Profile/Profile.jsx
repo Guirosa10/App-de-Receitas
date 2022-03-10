@@ -1,4 +1,5 @@
 import React, { useEffect, useContext } from 'react';
+import Footer from '../../components/Footer/Footer';
 import Header from '../../components/Header/Header';
 import AppContext from '../../context/Context/AppContext';
 
@@ -9,7 +10,10 @@ function Profile() {
   }, []);
 
   return (
-    <Header title="Profile" />
+    <div>
+      <Header title="Profile" />
+      <Footer />
+    </div>
   );
 }
 

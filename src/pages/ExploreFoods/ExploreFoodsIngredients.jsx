@@ -1,6 +1,7 @@
 import React, { useEffect, useContext } from 'react';
 import AppContext from '../../context/Context/AppContext';
 import Header from '../../components/Header/Header';
+import Footer from '../../components/Footer/Footer';
 
 export default function ExploreFoodsIngredients() {
   const { setSearchRender } = useContext(AppContext);
@@ -9,6 +10,9 @@ export default function ExploreFoodsIngredients() {
   }, []);
 
   return (
-    <Header title="Explore Ingredients" />
+    <div>
+      <Header title="Explore Ingredients" />
+      <Footer />
+    </div>
   );
 }

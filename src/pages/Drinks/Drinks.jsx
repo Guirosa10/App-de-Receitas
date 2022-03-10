@@ -4,6 +4,7 @@ import AppContext from '../../context/Context/AppContext';
 import Recipes from '../../components/Recipes/Recipes';
 import ButtonCategories from '../../components/ButtonCategories/ButtonCategories';
 import Header from '../../components/Header/Header';
+import Footer from '../../components/Footer/Footer';
 
 export default function Drinks() {
   const { drinks, setDrinks, setIsFood } = useContext(AppContext);
@@ -36,6 +37,7 @@ export default function Drinks() {
       <Header title="Drinks" />
       <ButtonCategories list={ drinksList } />
       <Recipes data={ drinks } />
+      <Footer />
     </main>
   );
 }

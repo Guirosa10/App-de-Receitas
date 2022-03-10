@@ -1,6 +1,7 @@
 import React, { useEffect, useContext } from 'react';
 import AppContext from '../../context/Context/AppContext';
 import Header from '../../components/Header/Header';
+import Footer from '../../components/Footer/Footer';
 
 export default function Explore() {
   const { setSearchRender } = useContext(AppContext);
@@ -9,6 +10,9 @@ export default function Explore() {
   }, []);
 
   return (
-    <Header title="Explore" />
+    <div>
+      <Header title="Explore" />
+      <Footer />
+    </div>
   );
 }
