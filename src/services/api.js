@@ -23,15 +23,15 @@ export const cocktailsListAPI = async () => {
 };
 
 export const mealsCategoriesAPI = async (category) => {
-  const URL = `https://www.themealdb.com/api/json/v1/1/filter.php?c=${category}`;
-  const { meals } = await fetch(URL)
+  const mealsURL = `https://www.themealdb.com/api/json/v1/1/filter.php?c=${category}`;
+  const { meals } = await fetch(mealsURL)
     .then((results) => results.json());
   return meals;
 };
 
 export const cocktailsCategoriesAPI = async (category) => {
-  const URL = `https://www.thecocktaildb.com/api/json/v1/1/filter.php?c=${category}`;
-  const { drinks } = await fetch(URL)
+  const drinksURL = `https://www.thecocktaildb.com/api/json/v1/1/filter.php?c=${category}`;
+  const { drinks } = await fetch(drinksURL)
     .then((results) => results.json());
   return drinks;
 };

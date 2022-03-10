@@ -1,10 +1,11 @@
-import React, { useState, useEffect } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import { mealsAPI, mealsListAPI } from '../../services/api';
+import AppContext from '../../context/Context/AppContext';
 import Recipes from '../../components/Recipes/Recipes';
 import ButtonCategories from '../../components/ButtonCategories/ButtonCategories';
 
 export default function Foods() {
-  const [meals, setMeals] = useState([]);
+  const { meals, setMeals, setIsFood } = useContext(AppContext);
   const [mealsList, setMealsList] = useState([]);
 
   useEffect(() => {
@@ -21,7 +22,8 @@ export default function Foods() {
       setMealsList(response);
     };
     fetchMealsList();
-  }, [setMeals, setMealsList]);
+    setIsFood(true);
+  }, [setMeals, setIsFood]);
 
   return (
     <main>

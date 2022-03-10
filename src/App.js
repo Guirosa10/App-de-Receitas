@@ -15,17 +15,17 @@ function App() {
           <Route exact path="/" component={ Login } />
           <Route path="/foods" component={ Foods } />
           <Route path="/drinks" component={ Drinks } />
-          {/* <Route path="/foods/:id" component={ } />
-              <Route path="/drinks/:id" component={ } />
-              <Route path="/explore" component={ } />
-              <Route path="/explore/foods" component={ } />
-              <Route path="/explore/drinks" component={ } />
-              <Route path="/explore/foods/ingredients" component={ } />
-              <Route path="/explore/drinks/ingredients" component={ } />
-              <Route path="/explore/foods/nationalities" component={ } />
-              <Route path="/profile" component={ } />
-              <Route path="/done-recipes" component={ } />
-              <Route path="/favorite-recipes" component={ } /> */}
+          <Route path="/foods/:id" component={ Foods } />
+          <Route path="/drinks/:id" component={ Drinks } />
+          {/* <Route path="/explore" component={ } />
+          <Route path="/explore/foods" component={ } />
+          <Route path="/explore/drinks" component={ } />
+          <Route path="/explore/foods/ingredients" component={ } />
+          <Route path="/explore/drinks/ingredients" component={ } />
+          <Route path="/explore/foods/nationalities" component={ } />
+          <Route path="/profile" component={ } />
+          <Route path="/done-recipes" component={ } />
+          <Route path="/favorite-recipes" component={ } /> */}
         </Switch>
       </BrowserRouter>
     </Provider>

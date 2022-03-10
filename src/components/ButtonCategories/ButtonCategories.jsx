@@ -1,25 +1,48 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import PropTypes from 'prop-types';
+import AppContext from '../../context/Context/AppContext';
+import { mealsAPI, cocktailsAPI } from '../../services/api';
+import Button from '../Button/Button';
 
 const ButtonCategories = ({ list }) => {
-  const handleClick = (strCategory) => {
-    const teste = strCategory;
-    return teste;
+  const { isFood, setMeals, setDrinks } = useContext(AppContext);
+
+  const handleAllButton = async () => {
+    if (isFood) {
+      const results = await mealsAPI();
+      results.length = 12;
+      setMeals(results);
+    } else {
+      const results = await cocktailsAPI();
+      results.length = 12;
+      setDrinks(results);
+    }
   };
 
   return (
-    <section>
-      { list.map(({ strCategory }, index) => (
+    <main>
+      <section>
         <button
-          key={ `${index}-button-category` }
           type="button"
-          data-testid={ `${strCategory}-category-filter` }
-          onClick={ () => handleClick(strCategory) }
+          data-testid="All-category-filter"
+          onClick={ handleAllButton }
         >
-          { strCategory }
+          All
         </button>
-      )) }
-    </section>
+        { list.map(({ strCategory }, index) => (
+          <div
+            key={ `${index}-button-category` }
+          >
+            <Button
+              dataTestId={ `${strCategory}-category-filter` }
+              name={ strCategory }
+            >
+              { strCategory }
+            </Button>
+          </div>
+        )) }
+      </section>
+    </main>
   );
 };
 

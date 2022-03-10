@@ -4,10 +4,19 @@ import AppContext from '../Context/AppContext';
 
 function Provider({ children }) {
   const [login, setLogin] = useState('');
+  const [meals, setMeals] = useState([]);
+  const [drinks, setDrinks] = useState([]);
+  const [isFood, setIsFood] = useState(true);
 
   const value = {
     login,
     setLogin,
+    meals,
+    setMeals,
+    drinks,
+    setDrinks,
+    isFood,
+    setIsFood,
   };
 
   return (

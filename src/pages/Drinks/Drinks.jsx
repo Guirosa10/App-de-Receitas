@@ -1,10 +1,11 @@
-import React, { useState, useEffect } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import { cocktailsAPI, cocktailsListAPI } from '../../services/api';
+import AppContext from '../../context/Context/AppContext';
 import Recipes from '../../components/Recipes/Recipes';
 import ButtonCategories from '../../components/ButtonCategories/ButtonCategories';
 
 export default function Drinks() {
-  const [drinks, setDrinks] = useState([]);
+  const { drinks, setDrinks, setIsFood } = useContext(AppContext);
   const [drinksList, setDrinksList] = useState([]);
 
   useEffect(() => {
@@ -21,7 +22,8 @@ export default function Drinks() {
       setDrinksList(response);
     };
     fetchCocktailsList();
-  }, [setDrinks, setDrinksList]);
+    setIsFood(false);
+  }, [setDrinks, setIsFood]);
 
   return (
     <main>
