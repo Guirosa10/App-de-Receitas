@@ -1,20 +1,20 @@
 .search-form {
+  align-self: center;
   display: flex;
   flex-direction: row;
-  align-self: center;
-  text-align: center;
   padding-left: 25%;
+  text-align: center;
 }
 
 .search-form-div {
   display: flex;
-  text-align: center;
   flex-direction: row;
+  text-align: center;
 }
 
 input {
-  margin: 15px;
   align-self: center;
+  margin: 15px;
   text-align: center;
 }
 
