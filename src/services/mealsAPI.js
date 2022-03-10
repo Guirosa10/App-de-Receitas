@@ -1,5 +1,5 @@
 export const mealsAPI = async () => {
-  const { meals } = await fetch('https://www.themealdb.com/api/json/v1/1/search.php?s')
+  const { meals } = await fetch('https://www.themealdb.com/api/json/v1/1/search.php?s=')
     .then((results) => results.json());
   return meals;
 };
