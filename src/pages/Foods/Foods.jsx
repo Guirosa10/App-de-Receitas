@@ -1,21 +1,37 @@
 /* eslint-disable react-hooks/exhaustive-deps */
-import React, { useEffect, useState } from 'react';
-import { mealsAPI } from '../../services/api';
+import React, { useContext, useEffect, useState } from 'react';
+import { mealsAPI, mealsListAPI } from '../../services/mealsAPI';
+import AppContext from '../../context/Context/AppContext';
 import Header from '../../components/Header/Header';
+import Recipes from '../../components/Recipes/Recipes';
+import ButtonCategories from '../../components/ButtonCategories/ButtonCategories';
 
 export default function Foods() {
-  const [foods, setFoods] = useState([]);
-  // eslint-disable-next-line react-hooks/exhaustive-deps
-  const fetchMeals = async () => {
-    const response = await mealsAPI();
-    setFoods(response);
-  };
+  const { meals, setMeals, setIsFood } = useContext(AppContext);
+  const [mealsList, setMealsList] = useState([]);
 
   useEffect(() => {
+    const fetchMeals = async () => {
+      const response = await mealsAPI();
+      response.length = 12;
+      setMeals(response);
+    };
     fetchMeals();
-    console.log(foods);
-  }, []);
+
+    const fetchMealsList = async () => {
+      const response = await mealsListAPI();
+      response.length = 5;
+      setMealsList(response);
+    };
+    fetchMealsList();
+    setIsFood(true);
+  }, [setMeals, setIsFood]);
+
   return (
-    <Header title="Foods" />
+    <main>
+      <Header title="Foods" />
+      <ButtonCategories list={ mealsList } />
+      <Recipes data={ meals } />
+    </main>
   );
 }
