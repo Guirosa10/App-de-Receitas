@@ -1,19 +1,18 @@
 import React, { useContext, useEffect, useState } from 'react';
 import { cocktailsAPI, cocktailsListAPI } from '../../services/cocktailsAPI';
 import AppContext from '../../context/Context/AppContext';
+import Header from '../../components/Header/Header';
 import Recipes from '../../components/Recipes/Recipes';
 import ButtonCategories from '../../components/ButtonCategories/ButtonCategories';
-import Header from '../../components/Header/Header';
 import Footer from '../../components/Footer/Footer';
 
 export default function Drinks() {
-  const { drinks, setDrinks, setIsFood } = useContext(AppContext);
+  const { drinks, setDrinks, setIsFood, setSearchRender } = useContext(AppContext);
   const [drinksList, setDrinksList] = useState([]);
-  const { setSearchRender } = useContext(AppContext);
 
-  useEffect(() => {
-    setSearchRender(true);
-  }, [setSearchRender]);
+  // useEffect(() => {
+  //   setSearchRender(true);
+  // }, [setSearchRender]);
 
   useEffect(() => {
     const fetchDrinks = async () => {
@@ -30,7 +29,8 @@ export default function Drinks() {
     };
     fetchCocktailsList();
     setIsFood(false);
-  }, [setDrinks, setIsFood]);
+    setSearchRender(true);
+  }, [setDrinks, setIsFood, setSearchRender]);
 
   return (
     <main>

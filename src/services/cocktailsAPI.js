@@ -1,5 +1,5 @@
 export const cocktailsAPI = async () => {
-  const { drinks } = await fetch('www.thecocktaildb.com/api/json/v1/1/search.php?s')
+  const { drinks } = await fetch('https://www.thecocktaildb.com/api/json/v1/1/search.php?s=')
     .then((results) => results.json());
   return drinks;
 };
