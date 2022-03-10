@@ -18,6 +18,7 @@ import DoneRecipes from './pages/DoneRecipes/DoneRecipes';
 import FavoriteRecipes from './pages/FavoriteRecipes/FavoriteRecipes';
 import ExploreFoodsNacionalites
 from './pages/ExploreFoodsNacionalites/ExploreFoodsNacionalites';
+// teste
 
 function App() {
   return (
