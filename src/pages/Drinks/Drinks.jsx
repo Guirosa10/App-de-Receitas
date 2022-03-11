@@ -36,7 +36,7 @@ export default function Drinks() {
     <main>
       <Header title="Drinks" />
       <ButtonCategories list={ drinksList } />
-      <Recipes data={ drinks } />
+      <Recipes data={ drinks || [] } />
       <Footer />
     </main>
   );

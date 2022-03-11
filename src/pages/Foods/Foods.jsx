@@ -32,7 +32,7 @@ export default function Foods() {
     <main>
       <Header title="Foods" />
       <ButtonCategories list={ mealsList } />
-      <Recipes data={ meals } />
+      <Recipes data={ meals || [] } />
       <Footer />
     </main>
   );

@@ -12,40 +12,49 @@ export default function SearchBar({ input }) {
   const [radioOption, setRadioOption] = useState('');
   const { isFood, setDrinks, setMeals } = useContext(AppContext);
 
+  const error = () => global
+    .alert('Sorry, we haven\'t found any recipes for these filters.');
+
+  const checkError = (results) => {
+    if (!results) {
+      error();
+    }
+  };
+
   const fetchMealByName = async () => {
     const results = await fetchByName(input);
     setMeals(results);
-    console.log(results);
+    checkError(results);
   };
 
   const fetchMealByingredient = async () => {
     const results = await fetchByIngredient(input);
     setMeals(results);
-    console.log(results);
+    checkError(results);
   };
 
   const fetchMealByFirstLetter = async () => {
     const results = await fetchByFirstLetter(input);
     setMeals(results);
-    console.log(results);
+    checkError(results);
   };
 
   const fetchDrinkByName = async () => {
     const results = await getDrinkByName(input);
     setDrinks(results);
-    console.log(results);
+    checkError(results);
   };
 
   const fetchDrinkByIngredient = async () => {
     const results = await getDrinkByIngredient(input);
     setDrinks(results);
-    console.log(results);
+    checkError(results);
   };
 
   const fetchDrinkByFirstLetter = async () => {
     const results = await getDrinkByFirstLetter(input);
     setDrinks(results);
-    console.log(results);
+    checkError(results);
   };
 
   const handleFoods = async () => {

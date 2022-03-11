@@ -34,3 +34,9 @@ export const fetchByFirstLetter = async (letter) => {
     .then((results) => results.json());
   return meals;
 };
+
+export const mealsIdAPI = async (id) => {
+  const { meals } = await fetch(`https://www.themealdb.com/api/json/v1/1/lookup.php?i=${id}`)
+    .then((results) => results.json());
+  return meals;
+};

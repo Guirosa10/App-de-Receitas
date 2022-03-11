@@ -12,6 +12,7 @@ const Recipes = ({ data }) => {
       />
     );
   }
+
   return (
     data && data.map((item, index) => (
       <section
