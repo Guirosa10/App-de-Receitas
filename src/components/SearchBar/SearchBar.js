@@ -7,6 +7,8 @@ import { getDrinkByFirstLetter,
   getDrinkByIngredient } from '../../services/cocktailsAPI';
 import './style.css';
 import AppContext from '../../context/Context/AppContext';
+import { RECIPES_LENGTH } from '../../helpers/constants';
+/* import { RECIPES_LENGTH } from '../../helpers/constants'; */
 
 export default function SearchBar({ input }) {
   const [radioOption, setRadioOption] = useState('');
@@ -18,43 +20,51 @@ export default function SearchBar({ input }) {
   const checkError = (results) => {
     if (!results) {
       error();
+      return true;
     }
+    return false;
   };
 
   const fetchMealByName = async () => {
     const results = await fetchByName(input);
-    setMeals(results);
-    checkError(results);
+    if (!checkError(results)) {
+      setMeals(results.slice(0, RECIPES_LENGTH));
+    }
   };
 
   const fetchMealByingredient = async () => {
     const results = await fetchByIngredient(input);
-    setMeals(results);
-    checkError(results);
+    if (!checkError(results)) {
+      setMeals(results.slice(0, RECIPES_LENGTH));
+    }
   };
 
   const fetchMealByFirstLetter = async () => {
     const results = await fetchByFirstLetter(input);
-    setMeals(results);
-    checkError(results);
+    if (!checkError(results)) {
+      setMeals(results.slice(0, RECIPES_LENGTH));
+    }
   };
 
   const fetchDrinkByName = async () => {
     const results = await getDrinkByName(input);
-    setDrinks(results);
-    checkError(results);
+    if (!checkError(results)) {
+      setDrinks(results.slice(0, RECIPES_LENGTH));
+    }
   };
 
   const fetchDrinkByIngredient = async () => {
     const results = await getDrinkByIngredient(input);
-    setDrinks(results);
-    checkError(results);
+    if (!checkError(results)) {
+      setDrinks(results.slice(0, RECIPES_LENGTH));
+    }
   };
 
   const fetchDrinkByFirstLetter = async () => {
     const results = await getDrinkByFirstLetter(input);
-    setDrinks(results);
-    checkError(results);
+    if (!checkError(results)) {
+      setDrinks(results.slice(0, RECIPES_LENGTH));
+    }
   };
 
   const handleFoods = async () => {

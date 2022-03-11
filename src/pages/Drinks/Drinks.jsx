@@ -5,20 +5,16 @@ import Header from '../../components/Header/Header';
 import Recipes from '../../components/Recipes/Recipes';
 import ButtonCategories from '../../components/ButtonCategories/ButtonCategories';
 import Footer from '../../components/Footer/Footer';
-
+import { RECIPES_LENGTH } from '../../helpers/constants';
+/* eslint-disable react-hooks/exhaustive-deps */
 export default function Drinks() {
   const { drinks, setDrinks, setIsFood, setSearchRender } = useContext(AppContext);
   const [drinksList, setDrinksList] = useState([]);
 
-  // useEffect(() => {
-  //   setSearchRender(true);
-  // }, [setSearchRender]);
-
   useEffect(() => {
     const fetchDrinks = async () => {
       const response = await cocktailsAPI();
-      response.length = 12;
-      setDrinks(response);
+      setDrinks(response.slice(0, RECIPES_LENGTH));
     };
     fetchDrinks();
 
