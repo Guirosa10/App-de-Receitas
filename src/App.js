@@ -5,8 +5,10 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import Login from './pages/Login/Login';
 import Provider from './context/Provider/Provider';
 import Foods from './pages/Foods/Foods';
+import FoodDetails from './pages/FoodDetails/FoodDetails';
 import Profile from './pages/Profile/Profile';
 import Drinks from './pages/Drinks/Drinks';
+import DrinksDetails from './pages/DrinksDetails/DrinksDetails';
 import Explore from './pages/Explore/Explore';
 import ExploreFoods from './pages/ExploreFoods/ExploreFoods';
 import ExploreDrinks from './pages/ExploreDrinks/ExploreDrinks';
@@ -26,10 +28,10 @@ function App() {
         <Switch>
           <Route exact path="/" component={ Login } />
           <Route exact path="/foods" component={ Foods } />
-          <Route exact path="/profile" component={ Profile } />
-          <Route exact path="/foods/:id" component={ Foods } />
-          <Route exact path="/drinks/:id" component={ Drinks } />
+          <Route exact path="/foods/:id" component={ FoodDetails } />
           <Route exact path="/drinks" component={ Drinks } />
+          <Route exact path="/drinks/:id" component={ DrinksDetails } />
+          <Route exact path="/profile" component={ Profile } />
           <Route exact path="/explore" component={ Explore } />
           <Route exact path="/explore/foods" component={ ExploreFoods } />
           <Route exact path="/explore/drinks" component={ ExploreDrinks } />

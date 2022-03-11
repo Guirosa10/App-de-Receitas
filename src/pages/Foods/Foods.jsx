@@ -6,6 +6,7 @@ import Header from '../../components/Header/Header';
 import Recipes from '../../components/Recipes/Recipes';
 import ButtonCategories from '../../components/ButtonCategories/ButtonCategories';
 import Footer from '../../components/Footer/Footer';
+import { RECIPES_LENGTH } from '../../helpers/constants';
 
 export default function Foods() {
   const { meals, setMeals, setIsFood } = useContext(AppContext);
@@ -15,7 +16,7 @@ export default function Foods() {
     const fetchMeals = async () => {
       const response = await mealsAPI();
       response.length = 12;
-      setMeals(response);
+      setMeals(response.slice(0, RECIPES_LENGTH));
     };
     fetchMeals();
 
@@ -26,13 +27,13 @@ export default function Foods() {
     };
     fetchMealsList();
     setIsFood(true);
-  }, [setMeals, setIsFood]);
+  }, []);
 
   return (
     <main>
       <Header title="Foods" />
       <ButtonCategories list={ mealsList } />
-      <Recipes data={ meals } />
+      <Recipes data={ meals || [] } />
       <Footer />
     </main>
   );
