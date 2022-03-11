@@ -4,10 +4,12 @@ import { useHistory } from 'react-router-dom';
 import AppContext from '../../context/Context/AppContext';
 import profileIcon from '../../images/profileIcon.svg';
 import searchIcon from '../../images/searchIcon.svg';
+import SearchBar from '../SearchBar/SearchBar';
 
 function Header({ title }) {
   const { searchRender } = useContext(AppContext);
   const [searchButton, setSearchButton] = useState(false);
+  const [searchInput, setSearchInput] = useState('');
   const history = useHistory();
 
   return (
@@ -38,8 +40,14 @@ function Header({ title }) {
         )
       }
       <section>
-        { searchButton && <input type="text" data-testid="search-input" /> }
+        { searchButton && <input
+          type="text"
+          data-testid="search-input"
+          value={ searchInput }
+          onChange={ (e) => setSearchInput(e.target.value) }
+        /> }
       </section>
+      <SearchBar input={ searchInput } />
     </header>
   );
 }
