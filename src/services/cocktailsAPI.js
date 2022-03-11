@@ -16,3 +16,21 @@ export const cocktailsCategoriesAPI = async (category) => {
     .then((results) => results.json());
   return drinks;
 };
+
+export const getDrinkByName = async (name) => {
+  const { drinks } = await fetch(`https://www.thecocktaildb.com/api/json/v1/1/search.php?s=${name}`)
+    .then((results) => results.json());
+  return drinks;
+};
+
+export const getDrinkByIngredient = async (ingredient) => {
+  const { drinks } = await fetch(`https://www.thecocktaildb.com/api/json/v1/1/filter.php?i=${ingredient}`)
+    .then((results) => results.json());
+  return drinks;
+};
+
+export const getDrinkByFirstLetter = async (letter) => {
+  const { drinks } = await fetch(`https://www.thecocktaildb.com/api/json/v1/1/search.php?f=${letter}`)
+    .then((results) => results.json());
+  return drinks;
+};

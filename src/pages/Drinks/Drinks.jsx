@@ -30,7 +30,7 @@ export default function Drinks() {
     fetchCocktailsList();
     setIsFood(false);
     setSearchRender(true);
-  }, [setDrinks, setIsFood, setSearchRender]);
+  }, []);
 
   return (
     <main>

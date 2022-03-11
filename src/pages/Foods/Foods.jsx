@@ -26,7 +26,7 @@ export default function Foods() {
     };
     fetchMealsList();
     setIsFood(true);
-  }, [setMeals, setIsFood]);
+  }, []);
 
   return (
     <main>

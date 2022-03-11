@@ -1,36 +1,94 @@
-import React, { useState } from 'react';
-/* import { fetchByFirstLetter, fetchByIngredient, fetchByName } from '../../services/api'; */
+import React, { useContext, useState } from 'react';
+import propTypes from 'prop-types';
+import { fetchByFirstLetter,
+  fetchByIngredient, fetchByName } from '../../services/mealsAPI';
+import { getDrinkByFirstLetter,
+  getDrinkByName,
+  getDrinkByIngredient } from '../../services/cocktailsAPI';
 import './style.css';
+import AppContext from '../../context/Context/AppContext';
 
-export default function SearchBar() {
+export default function SearchBar({ input }) {
   const [radioOption, setRadioOption] = useState('');
+  const { isFood, setDrinks, setMeals } = useContext(AppContext);
 
-  /* const fetchMealByName = async () => {
-    const results = fetchByName(searchinput);
-    setFoods(results);
+  const fetchMealByName = async () => {
+    const results = await fetchByName(input);
+    setMeals(results);
+    console.log(results);
   };
 
   const fetchMealByingredient = async () => {
-    const results = fetchByIngredient(searchinput);
-    setFoods(results);
+    const results = await fetchByIngredient(input);
+    setMeals(results);
+    console.log(results);
   };
 
   const fetchMealByFirstLetter = async () => {
-    const results = fetchByFirstLetter(searchinput);
-    setFoods(results);
-  }; */
+    const results = await fetchByFirstLetter(input);
+    setMeals(results);
+    console.log(results);
+  };
 
-  /* const handleSubmitButton = () => {
-    if (radioOption === "ingredient"){
-      fetchMealByIngredient()
+  const fetchDrinkByName = async () => {
+    const results = await getDrinkByName(input);
+    setDrinks(results);
+    console.log(results);
+  };
+
+  const fetchDrinkByIngredient = async () => {
+    const results = await getDrinkByIngredient(input);
+    setDrinks(results);
+    console.log(results);
+  };
+
+  const fetchDrinkByFirstLetter = async () => {
+    const results = await getDrinkByFirstLetter(input);
+    setDrinks(results);
+    console.log(results);
+  };
+
+  const handleFoods = async () => {
+    if (isFood) {
+      if (radioOption === 'ingredient') {
+        await fetchMealByingredient();
+      }
+      if (radioOption === 'name') {
+        await fetchMealByName();
+      }
+      if (radioOption === 'firstLetter') {
+        if (input.length === 1) {
+          await fetchMealByFirstLetter();
+        } else {
+          global.alert('Your search must have only 1 (one) character');
+        }
+      }
     }
-    if (radioOption === "name"){
-      fetchmealByName()
+  };
+
+  const handleDrinks = async () => {
+    if (!isFood) {
+      if (radioOption === 'ingredient') {
+        await fetchDrinkByIngredient();
+      }
+      if (radioOption === 'name') {
+        await fetchDrinkByName();
+      }
+      if (radioOption === 'firstLetter') {
+        if (input.length === 1) {
+          await fetchDrinkByFirstLetter();
+        } else {
+          global.alert('Your search must have only 1 (one) character');
+        }
+      }
     }
-    if (radioOption === "firstLetter"){
-      fetchMealByFirstLetter()
-    }
-  } */
+  };
+
+  const handleSubmitButton = async (e) => {
+    e.preventDefault();
+    handleDrinks();
+    handleFoods();
+  };
 
   return (
     <div className="search-form-div">
@@ -65,6 +123,7 @@ export default function SearchBar() {
         <button
           type="submit"
           data-testid="exec-search-btn"
+          onClick={ handleSubmitButton }
         >
           Busca
         </button>
@@ -72,3 +131,7 @@ export default function SearchBar() {
     </div>
   );
 }
+
+SearchBar.propTypes = {
+  input: propTypes.string,
+}.isRequired;
