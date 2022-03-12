@@ -5,9 +5,11 @@ import Footer from '../../components/Footer/Footer';
 
 export default function ExploreDrinksIngredients() {
   const { setSearchRender } = useContext(AppContext);
+
   useEffect(() => {
     setSearchRender(false);
-  }, []);
+  }, [setSearchRender]);
+
   return (
     <div>
       <Header title="Explore Ingredients" />

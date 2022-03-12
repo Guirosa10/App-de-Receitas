@@ -5,9 +5,10 @@ import Footer from '../../components/Footer/Footer';
 
 export default function ExploreFoodsIngredients() {
   const { setSearchRender } = useContext(AppContext);
+
   useEffect(() => {
     setSearchRender(false);
-  }, []);
+  }, [setSearchRender]);
 
   return (
     <div>

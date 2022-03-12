@@ -1,18 +1,17 @@
 import React from 'react';
-import propTypes, { object } from 'prop-types';
+import PropTypes from 'prop-types';
 
 export default function Ingredients({ ingredients, measures, recipes }) {
-  console.log('ingredientes');
-  console.log(ingredients);
-  console.log('receitas');
-  console.log(recipes);
   return (
     <ul>
       {
         ingredients.map((ingredient, index) => (recipes[ingredient] && (
-          <li key={ ingredient }>
+          <li
+            key={ `${index}-ingredient-name-and-measure` }
+            data-testid={ `${index}-ingredient-name-and-measure` }
+          >
             { recipes[ingredient] }
-            {' --- '}
+            { recipes[measures[index]] ? ' ----- ' : null}
             { recipes[measures[index]] }
           </li>
         )
@@ -23,5 +22,5 @@ export default function Ingredients({ ingredients, measures, recipes }) {
 }
 
 Ingredients.propTypes = {
-  ingredients: propTypes.arrayOf(object),
+  ingredients: PropTypes.arrayOf(PropTypes.object),
 }.isRequired;
