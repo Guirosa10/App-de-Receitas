@@ -1,12 +1,12 @@
 import React, { useContext, useEffect, useState } from 'react';
 import { cocktailsAPI, cocktailsListAPI } from '../../services/cocktailsAPI';
 import AppContext from '../../context/Context/AppContext';
+import { RECIPES_LENGTH, CATEGORIES_LENGTH } from '../../helpers/constants';
 import Header from '../../components/Header/Header';
 import Recipes from '../../components/Recipes/Recipes';
 import ButtonCategories from '../../components/ButtonCategories/ButtonCategories';
 import Footer from '../../components/Footer/Footer';
-import { RECIPES_LENGTH } from '../../helpers/constants';
-/* eslint-disable react-hooks/exhaustive-deps */
+
 export default function Drinks() {
   const { drinks, setDrinks, setIsFood, setSearchRender } = useContext(AppContext);
   const [drinksList, setDrinksList] = useState([]);
@@ -20,13 +20,12 @@ export default function Drinks() {
 
     const fetchCocktailsList = async () => {
       const response = await cocktailsListAPI();
-      response.length = 5;
-      setDrinksList(response);
+      setDrinksList(response.slice(0, CATEGORIES_LENGTH));
     };
     fetchCocktailsList();
     setIsFood(false);
     setSearchRender(true);
-  }, []);
+  }, [setDrinks, setIsFood, setSearchRender]);
 
   return (
     <main>

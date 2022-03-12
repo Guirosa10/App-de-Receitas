@@ -5,9 +5,10 @@ import AppContext from '../../context/Context/AppContext';
 
 export default function ExploreFoodsNacionalites() {
   const { setSearchRender } = useContext(AppContext);
+
   useEffect(() => {
     setSearchRender(true);
-  }, []);
+  }, [setSearchRender]);
 
   return (
     <div>

@@ -8,7 +8,6 @@ import { getDrinkByFirstLetter,
 import './style.css';
 import AppContext from '../../context/Context/AppContext';
 import { RECIPES_LENGTH } from '../../helpers/constants';
-/* import { RECIPES_LENGTH } from '../../helpers/constants'; */
 
 export default function SearchBar({ input }) {
   const [radioOption, setRadioOption] = useState('');

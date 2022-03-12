@@ -5,6 +5,7 @@ import AppContext from '../../context/Context/AppContext';
 
 const Recipes = ({ data }) => {
   const { isFood } = useContext(AppContext);
+
   if (data.length === 1) {
     return (
       <Redirect

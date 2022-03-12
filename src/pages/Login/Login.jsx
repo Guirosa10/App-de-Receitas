@@ -2,7 +2,7 @@ import React, { useContext, useEffect, useState } from 'react';
 import { Redirect } from 'react-router-dom';
 import rockGlass from '../../images/rockGlass.svg';
 import AppContext from '../../context/Context/AppContext';
-import PASSWORD_LENGTH from '../../helpers/constants';
+import { PASSWORD_LENGTH } from '../../helpers/constants';
 
 export default function Login() {
   const { login, setLogin } = useContext(AppContext);
