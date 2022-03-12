@@ -5,9 +5,10 @@ import AppContext from '../../context/Context/AppContext';
 
 function Profile() {
   const { setSearchRender } = useContext(AppContext);
+
   useEffect(() => {
     setSearchRender(false);
-  }, []);
+  }, [setSearchRender]);
 
   return (
     <div>
