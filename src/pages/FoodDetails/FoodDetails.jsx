@@ -8,15 +8,17 @@ import Recommended from '../../components/Recommended/Recommended';
 import { RECOMENDATION_LENGTH } from '../../helpers/constants';
 import shareIcon from '../../images/shareIcon.svg';
 import whiteHeartIcon from '../../images/whiteHeartIcon.svg';
-// import blackHeartIcon from '../../images/blackHeartIcon.svg';
+import blackHeartIcon from '../../images/blackHeartIcon.svg';
 
 export default function FoodDetails() {
-  const { meals, setMeals } = useContext(AppContext);
+  const { meals, setMeals, favorite, setFavorite } = useContext(AppContext);
   const { id } = useParams();
   const { pathname } = useLocation();
   const [ingredients, setIngredients] = useState([]);
   const [measures, setMeasures] = useState([]);
   const [recomendation, setRecomendation] = useState([]);
+  const [isShowingMessage, setIsShowingMessage] = useState(false);
+  const [isFavorite, setIsFavorite] = useState(false);
 
   const filterIngredientsFunction = (array) => {
     const keys = Object.keys(array[0]);
@@ -44,12 +46,45 @@ export default function FoodDetails() {
       setRecomendation(response.slice(0, RECOMENDATION_LENGTH));
     };
     fetchMealsRecomendation();
+
+    const verifyFavoriteRecipes = () => {
+      const storage = JSON.parse(localStorage.getItem('favoriteRecipes')) || [];
+      console.log(storage);
+      const results = storage.some((recipe) => recipe.id === id);
+      if (results) {
+        setIsFavorite(true);
+      } else {
+        setIsFavorite(false);
+      }
+    };
+    verifyFavoriteRecipes();
   }, [id, setMeals]);
 
   const handleShare = () => {
-    const shareRecipe = navigator.clipboard.writeText(pathname);
-    global.alert('Link copied!');
+    const shareRecipe = navigator.clipboard.writeText(`http://localhost:3000${pathname}`);
+    setIsShowingMessage(true);
     return shareRecipe;
+  };
+
+  const saveFavorite = () => {
+    if (isFavorite) {
+      setIsFavorite(false);
+    } else {
+      const newObj = {
+        id,
+        type: 'food',
+        nationality: meals[0].strArea,
+        category: meals[0].strCategory,
+        alcoholicOrNot: '',
+        name: meals[0].strMeal,
+        image: meals[0].strMealThumb,
+      };
+      setFavorite([...favorite, newObj]);
+      setIsFavorite(true);
+      const previousObjects = JSON.parse(localStorage.getItem('favoriteRecipes')) || [];
+      const updatedObjects = [...previousObjects, newObj];
+      localStorage.setItem('favoriteRecipes', JSON.stringify(updatedObjects));
+    }
   };
 
   return (
@@ -72,10 +107,15 @@ export default function FoodDetails() {
               alt="Share icon"
             />
           </button>
-          <button type="button" data-testid="favorite-btn">
+          { isShowingMessage ? <span>Link copied!</span> : null}
+          <button
+            type="button"
+            onClick={ saveFavorite }
+          >
             <img
-              src={ whiteHeartIcon }
+              src={ isFavorite ? blackHeartIcon : whiteHeartIcon }
               alt="Like icon"
+              data-testid="favorite-btn"
             />
           </button>
           <p data-testid="recipe-category">{meal.strCategory}</p>
