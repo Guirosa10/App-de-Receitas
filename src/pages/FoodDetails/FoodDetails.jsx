@@ -65,7 +65,7 @@ export default function FoodDetails() {
     setIsShowingMessage(true);
     return shareRecipe;
   };
-
+  // função de salvar
   const saveFavorite = () => {
     if (isFavorite) {
       setIsFavorite(false);
