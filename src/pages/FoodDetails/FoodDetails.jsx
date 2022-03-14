@@ -11,7 +11,7 @@ import whiteHeartIcon from '../../images/whiteHeartIcon.svg';
 import blackHeartIcon from '../../images/blackHeartIcon.svg';
 
 export default function FoodDetails() {
-  const { meals, setMeals, favorite, setFavorite } = useContext(AppContext);
+  const { meals, setMeals } = useContext(AppContext);
   const { id } = useParams();
   const { pathname } = useLocation();
   const [ingredients, setIngredients] = useState([]);
@@ -19,6 +19,7 @@ export default function FoodDetails() {
   const [recomendation, setRecomendation] = useState([]);
   const [isShowingMessage, setIsShowingMessage] = useState(false);
   const [isFavorite, setIsFavorite] = useState(false);
+  // const [filteredIngredients, setFilteredIngredients] = useState([]);
 
   const filterIngredientsFunction = (array) => {
     const keys = Object.keys(array[0]);
@@ -60,6 +61,19 @@ export default function FoodDetails() {
     verifyFavoriteRecipes();
   }, [id, setMeals]);
 
+  const checkInProgressRecipe = () => {
+    const storage = JSON.parse(localStorage.getItem('inProgressRecipes'));
+    if (storage) {
+      const values = Object.keys(storage.meals);
+      const results = values.some((item) => item === id);
+      if (results) {
+        return true;
+      }
+      return false;
+    }
+    return false;
+  };
+
   const handleShare = () => {
     const shareRecipe = navigator.clipboard.writeText(`http://localhost:3000${pathname}`);
     setIsShowingMessage(true);
@@ -79,12 +93,21 @@ export default function FoodDetails() {
         name: meals[0].strMeal,
         image: meals[0].strMealThumb,
       };
-      setFavorite([...favorite, newObj]);
       setIsFavorite(true);
       const previousObjects = JSON.parse(localStorage.getItem('favoriteRecipes')) || [];
       const updatedObjects = [...previousObjects, newObj];
       localStorage.setItem('favoriteRecipes', JSON.stringify(updatedObjects));
     }
+  };
+
+  const startRecipe = () => {
+    const previousObj = JSON
+      .parse(localStorage.getItem('inProgressRecipes')) || { meals: {} };
+    previousObj.meals[id] = [];
+    if (!previousObj.cocktails) {
+      previousObj.cocktails = {};
+    }
+    localStorage.setItem('inProgressRecipes', JSON.stringify(previousObj));
   };
 
   return (
@@ -138,8 +161,11 @@ export default function FoodDetails() {
               type="button"
               data-testid="start-recipe-btn"
               className="start-recipe-btn"
+              onClick={ startRecipe }
             >
-              Start Recipe
+              {
+                checkInProgressRecipe() ? 'Continue Recipe' : 'Start Recipe'
+              }
             </button>
           </Link>
         </section>

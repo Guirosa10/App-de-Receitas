@@ -9,7 +9,14 @@ import whiteHeartIcon from '../../images/whiteHeartIcon.svg';
 import blackHeartIcon from '../../images/blackHeartIcon.svg';
 
 export default function FoodsInProgress() {
-  const { drinks, setDrinks, favorite, setFavorite } = useContext(AppContext);
+  const {
+    drinks,
+    setDrinks,
+    favorite,
+    setFavorite,
+    isFood,
+    setIsFood } = useContext(AppContext);
+
   const { id } = useParams();
   const { pathname } = useLocation();
   const [ingredients, setIngredients] = useState([]);
@@ -37,7 +44,8 @@ export default function FoodsInProgress() {
       filterMeasuresFunction(response);
     };
     fetchDrinksId();
-  }, [id, setDrinks]);
+    setIsFood(false);
+  }, [id, setDrinks, setIsFood]);
 
   const handleShare = () => {
     const shareRecipe = navigator.clipboard.writeText(`http://localhost:3000${pathname}`);
@@ -103,6 +111,8 @@ export default function FoodsInProgress() {
             recipes={ drinks[0] }
             ingredients={ ingredients }
             measures={ measures }
+            id={ id }
+            isFood={ isFood }
           />
           <button
             type="button"
