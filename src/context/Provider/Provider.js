@@ -4,10 +4,10 @@ import AppContext from '../Context/AppContext';
 
 function Provider({ children }) {
   const [login, setLogin] = useState('');
-  const [searchRender, setSearchRender] = useState(true);
   const [meals, setMeals] = useState([]);
   const [drinks, setDrinks] = useState([]);
   const [isFood, setIsFood] = useState(true);
+  const [searchRender, setSearchRender] = useState(true);
   const [favorite, setFavorite] = useState([]);
 
   const value = {

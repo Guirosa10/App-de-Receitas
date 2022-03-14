@@ -97,6 +97,7 @@ export default function FoodDetails() {
             data-testid="recipe-photo"
           />
           <h3 data-testid="recipe-title">{ meal.strMeal }</h3>
+          <p data-testid="recipe-category">{ meal.strCategory }</p>
           <button
             type="button"
             data-testid="share-btn"
@@ -118,8 +119,7 @@ export default function FoodDetails() {
               data-testid="favorite-btn"
             />
           </button>
-          <p data-testid="recipe-category">{meal.strCategory}</p>
-          <p data-testid="instructions">{meal.strInstructions}</p>
+          <p data-testid="instructions">{ meal.strInstructions }</p>
           <Ingredients
             recipes={ meals[0] }
             ingredients={ ingredients }
@@ -139,7 +139,7 @@ export default function FoodDetails() {
               data-testid="start-recipe-btn"
               className="start-recipe-btn"
             >
-              Começar Receita
+              Start Recipe
             </button>
           </Link>
         </section>
