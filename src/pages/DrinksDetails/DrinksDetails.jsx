@@ -97,7 +97,7 @@ export default function DrinksDetails() {
             alt={ drink.idDrink }
             key={ drink.idDrink }
           />
-          <h3 data-testid="recipe-title">{drink.strDrink}</h3>
+          <h3 data-testid="recipe-title">{ drink.strDrink }</h3>
           <p data-testid="recipe-category">
             { drink.strAlcoholic }
           </p>
@@ -138,7 +138,7 @@ export default function DrinksDetails() {
               data-testid="start-recipe-btn"
               className="start-recipe-btn"
             >
-              Começar Receita
+              Start Recipe
             </button>
           </Link>
         </section>
