@@ -22,7 +22,6 @@ import ExploreFoodsNacionalites
 from './pages/ExploreFoodsNacionalites/ExploreFoodsNacionalites';
 import FoodsInProgress from './pages/FoodsInProgress/FoodsInProgress';
 import DrinksInProgress from './pages/DrinksInProgress/DrinksInProgress';
-//
 
 function App() {
   return (
