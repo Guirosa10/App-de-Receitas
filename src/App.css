@@ -92,8 +92,3 @@
   bottom: 0%;
   position: fixed;
 }
-
-/* Referência para este requisito: http://www.java2s.com/example/html-css/html-tag/add-strikethrough-to-checked-checkbox.html */
-input[type=checkbox]:checked + span.strikethrough {
-  text-decoration:line-through;
-}

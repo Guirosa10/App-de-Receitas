@@ -1,10 +1,24 @@
-import React from 'react';
+import React, { /* useEffect  */} from 'react';
 import PropTypes from 'prop-types';
 import Input from '../input/Input';
 
 function IngredientsInProgress({ isFood, id, ingredients, measures, recipes }) {
-  console.log(isFood);
-  console.log('página de ingredientes em progresso componente');
+  /*  useEffect(() => {
+    const checkStorage = () => {
+      const objecto = JSON.parse(localStorage.getItem('inProgressRecipes'));
+      if (!objecto) {
+        const ids = Object.keys(objecto.meals);
+        if (!ids.includes(id)) {
+        const newObj = isFood ? { meals: { [id]: [] }, cocktails: {} } : { meals: { [id]: [] }, cocktails: {} }
+        localStorage.setItem('inProgressRecipes', JSON.stringify(newObj));
+        }
+      }
+      const newObj = { meals: { [id]: [] }, cocktails: {} };
+      localStorage.setItem('inProgressRecipes', JSON.stringify(newObj));
+    };
+    checkStorage();
+  }, []); */
+
   return (
     <ul style={ { listStyleType: 'none' } }>
       {
@@ -13,21 +27,15 @@ function IngredientsInProgress({ isFood, id, ingredients, measures, recipes }) {
             key={ `${index}-ingredient` }
             data-testid={ `${index}-ingredient-step` }
           >
-            <label htmlFor={ `${index}-ingredient` }>
-              <Input
-                isFood={ isFood }
-                type="checkbox"
-                id={ `${index}-ingredient` }
-                filterId={ id }
-                value={ recipes[ingredient] }
-              />
-              <span className="strikethrough">
-                {' '}
-                { recipes[ingredient] }
-                { recipes[measures[index]] ? ' ----- ' : null}
-                { recipes[measures[index]] }
-              </span>
-            </label>
+            <Input
+              isFood={ isFood }
+              type="checkbox"
+              id={ `${index}-ingredient` }
+              filterId={ id }
+              value={ recipes[ingredient] }
+              measures={ recipes[measures[index]] }
+              datatestid={ `${index}-ingredient` }
+            />
           </li>
         )
         ))

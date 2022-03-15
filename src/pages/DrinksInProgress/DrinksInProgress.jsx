@@ -82,6 +82,7 @@ export default function FoodsInProgress() {
             src={ drink.strDrinkThumb }
             alt={ drink.idDrink }
             data-testid="recipe-photo"
+            width="360px"
           />
           <h3 data-testid="recipe-title">{ drink.strDrink }</h3>
           <p data-testid="recipe-category">{ drink.strAlcoholic }</p>
