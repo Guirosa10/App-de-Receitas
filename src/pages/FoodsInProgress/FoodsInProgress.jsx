@@ -12,8 +12,6 @@ export default function FoodsInProgress() {
   const {
     meals,
     setMeals,
-    favorite,
-    setFavorite,
     isFood,
     setIsFood } = useContext(AppContext);
 
@@ -66,7 +64,6 @@ export default function FoodsInProgress() {
         name: meals[0].strMeal,
         image: meals[0].strMealThumb,
       };
-      setFavorite([...favorite, newObj]);
       setIsFavorite(true);
       const previousObjects = JSON.parse(localStorage.getItem('favoriteRecipes')) || [];
       const updatedObjects = [...previousObjects, newObj];

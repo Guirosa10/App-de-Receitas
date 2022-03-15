@@ -1,25 +1,10 @@
-import React, { useState } from 'react';
+import React from 'react';
 import PropTypes from 'prop-types';
 import Input from '../input/Input';
 
 function IngredientsInProgress({ isFood, id, ingredients, measures, recipes }) {
-  const [inProgressRecipes, setInProgressRecipes] = useState(JSON.parse(localStorage
-    .getItem('inProgressRecipes')));
-
-  const handleClick = (e) => {
-    if (isFood) {
-      const array = inProgressRecipes.meals[id];
-      array.push(e.target.value);
-      setInProgressRecipes(array);
-      localStorage.setItem('inProgressRecipes', JSON.stringify(inProgressRecipes));
-    } else {
-      const array = inProgressRecipes.cocktails[id];
-      array.push(e.target.value);
-      setInProgressRecipes(array);
-      localStorage.setItem('inProgressRecipes', JSON.stringify(inProgressRecipes));
-    }
-  };
-
+  console.log(isFood);
+  console.log('página de ingredientes em progresso componente');
   return (
     <ul style={ { listStyleType: 'none' } }>
       {
@@ -30,12 +15,11 @@ function IngredientsInProgress({ isFood, id, ingredients, measures, recipes }) {
           >
             <label htmlFor={ `${index}-ingredient` }>
               <Input
+                isFood={ isFood }
                 type="checkbox"
                 id={ `${index}-ingredient` }
                 filterId={ id }
                 value={ recipes[ingredient] }
-                onChange={ handleClick }
-                /* checked={ filterFunction() } */
               />
               <span className="strikethrough">
                 {' '}
