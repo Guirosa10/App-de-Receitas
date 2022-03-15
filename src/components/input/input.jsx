@@ -9,30 +9,27 @@ export default function Input({ isFood, filterId, type, id, value }) {
   const handleClick = () => {
     if (isFood) {
       if (inProgressRecipes) {
-        console.log(inProgressRecipes);
-        const array = inProgressRecipes.meals[filterId].push(value);
-        console.log(array);
-        setInProgressRecipes(array);
+        const obj = inProgressRecipes;
+        obj.meals[filterId].push(value);
+        setInProgressRecipes(obj);
         localStorage.setItem('inProgressRecipes', JSON.stringify(inProgressRecipes));
         setCheckedInput(true);
       }
     } else if (inProgressRecipes) {
-      setInProgressRecipes(JSON.parse(localStorage
-        .getItem('inProgressRecipes')));
-      const array = inProgressRecipes.cocktails[filterId];
-      const newArray = array.push(e.target.value);
-      setInProgressRecipes(newArray);
+      const obj = inProgressRecipes;
+      obj.cocktails[filterId].push(value);
+      setInProgressRecipes(obj);
       localStorage.setItem('inProgressRecipes', JSON.stringify(inProgressRecipes));
       setCheckedInput(true);
     }
   };
+  const storage = JSON
+    .parse(localStorage.getItem('inProgressRecipes'));
 
   useEffect(() => {
+    const recipe = isFood ? storage.meals[filterId] : storage.cocktails[filterId];
     const filterFunction = () => {
-      const storage = JSON
-        .parse(localStorage.getItem('inProgressRecipes'));
       if (storage) {
-        const recipe = storage.meals[filterId];
         const results = recipe.some((ingredient) => ingredient === value);
         if (results) {
           setCheckedInput(true);
@@ -40,8 +37,10 @@ export default function Input({ isFood, filterId, type, id, value }) {
           setCheckedInput(false);
         }
       }
+      setInProgressRecipes(JSON.parse(localStorage.getItem('inProgressRecipes')));
     };
     filterFunction();
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   return (
