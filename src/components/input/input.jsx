@@ -1,8 +1,10 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import React, { useEffect, useState } from 'react';
 import propTypes from 'prop-types';
 import './style.css';
 
-function Input({ isFood, filterId, type, id, value, measures }) {
+function Input({
+  isFood, filterId, type, id, value, measures, setingredientsList, ingredientsList }) {
   const [checkedInput, setCheckedInput] = useState(false);
 
   const handleClick = () => {
@@ -13,6 +15,7 @@ function Input({ isFood, filterId, type, id, value, measures }) {
     const input = document.getElementById(id);
     input.setAttribute('checked', 'checked');
     setCheckedInput(true);
+    setingredientsList([...ingredientsList, value]);
   };
 
   const filterFunction = () => {

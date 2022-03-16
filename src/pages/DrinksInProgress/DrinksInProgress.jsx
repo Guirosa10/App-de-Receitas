@@ -1,5 +1,5 @@
 import React, { useEffect, useContext, useState } from 'react';
-import { useParams, useLocation } from 'react-router-dom';
+import { useParams, useLocation, Link } from 'react-router-dom';
 import AppContext from '../../context/Context/AppContext';
 import { cocktailsIdAPI } from '../../services/cocktailsAPI';
 import IngredientsInProgress
@@ -12,8 +12,6 @@ export default function FoodsInProgress() {
   const {
     drinks,
     setDrinks,
-    favorite,
-    setFavorite,
     isFood,
     setIsFood } = useContext(AppContext);
 
@@ -44,11 +42,24 @@ export default function FoodsInProgress() {
       filterMeasuresFunction(response);
     };
     fetchDrinksId();
+
+    const verifyFavoriteRecipes = () => {
+      const storage = JSON.parse(localStorage.getItem('favoriteRecipes')) || [];
+      console.log(storage);
+      const results = storage.some((recipe) => recipe.id === id);
+      if (results) {
+        setIsFavorite(true);
+      } else {
+        setIsFavorite(false);
+      }
+    };
+    verifyFavoriteRecipes();
     setIsFood(false);
   }, [id, setDrinks, setIsFood]);
 
   const handleShare = () => {
-    const shareRecipe = navigator.clipboard.writeText(`http://localhost:3000${pathname}`);
+    const address = pathname.split('/i')[0];
+    const shareRecipe = navigator.clipboard.writeText(`http://localhost:3000${address}`);
     setIsShowingMessage(true);
     return shareRecipe;
   };
@@ -66,7 +77,6 @@ export default function FoodsInProgress() {
         name: drinks[0].strDrink,
         image: drinks[0].strDrinkThumb,
       };
-      setFavorite([...favorite, newObj]);
       setIsFavorite(true);
       const previousObjects = JSON.parse(localStorage.getItem('favoriteRecipes')) || [];
       const updatedObjects = [...previousObjects, newObj];
@@ -115,13 +125,16 @@ export default function FoodsInProgress() {
             id={ id }
             isFood={ isFood }
           />
-          <button
-            type="button"
-            data-testid="finish-recipe-btn"
-            className="finish-recipe-btn"
-          >
-            Finish Recipe
-          </button>
+          <Link to="/done-recipes">
+            <button
+              type="button"
+              data-testid="finish-recipe-btn"
+              className="finish-recipe-btn"
+              disabled
+            >
+              Finish Recipe
+            </button>
+          </Link>
         </section>
       ))}
     </main>

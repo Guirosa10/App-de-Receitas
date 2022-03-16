@@ -3,9 +3,10 @@ import React, { useEffect } from 'react';
 import PropTypes from 'prop-types';
 import Input from '../input/Input';
 
-function IngredientsInProgress({ isFood, id, ingredients, measures, recipes }) {
+function IngredientsInProgress({
+  isFood, id, ingredients, measures, recipes, setingredientsList, ingredientsList }) {
   useEffect(() => {
-    const obj = JSON.parse(localStorage.getItem('inProgressRecipes'));
+    /* const obj = JSON.parse(localStorage.getItem('inProgressRecipes'));
     const key = isFood ? 'meals' : 'cocktails';
     if (!obj) {
       const newObj = { meals: {}, cocktails: {} };
@@ -19,7 +20,7 @@ function IngredientsInProgress({ isFood, id, ingredients, measures, recipes }) {
         newObj[key][id] = [];
         localStorage.setItem('inProgressRecipes', JSON.stringify(newObj));
       }
-    }
+    } */
   }, []);
 
   return (
@@ -31,6 +32,8 @@ function IngredientsInProgress({ isFood, id, ingredients, measures, recipes }) {
             data-testid={ `${index}-ingredient-step` }
           >
             <Input
+              setingredientsList={ setingredientsList }
+              ingredientsList={ ingredientsList }
               isFood={ isFood }
               type="checkbox"
               id={ `${index}-ingredient` }

@@ -1,5 +1,5 @@
 import React, { useEffect, useContext, useState } from 'react';
-import { useParams, useLocation } from 'react-router-dom';
+import { useParams, useLocation, Link } from 'react-router-dom';
 import AppContext from '../../context/Context/AppContext';
 import { mealsIdAPI } from '../../services/mealsAPI';
 import IngredientsInProgress
@@ -13,7 +13,8 @@ export default function FoodsInProgress() {
     meals,
     setMeals,
     isFood,
-    setIsFood } = useContext(AppContext);
+    setIsFood,
+  } = useContext(AppContext);
 
   const { id } = useParams();
   const { pathname } = useLocation();
@@ -21,6 +22,8 @@ export default function FoodsInProgress() {
   const [measures, setMeasures] = useState([]);
   const [isShowingMessage, setIsShowingMessage] = useState(false);
   const [isFavorite, setIsFavorite] = useState(false);
+  const [disabled, setDisabled] = useState(true);
+  const [ingredientsList, setingredientsList] = useState([]);
 
   const filterIngredientsFunction = (array) => {
     const keys = Object.keys(array[0]);
@@ -34,6 +37,44 @@ export default function FoodsInProgress() {
     setMeasures(results);
   };
 
+  const getStorageFunction = () => {
+    const obj = JSON.parse(localStorage.getItem('inProgressRecipes'));
+    if (!obj) {
+      const newObj = { meals: {}, cocktails: {} };
+      newObj.meals[id] = [];
+      localStorage.setItem('inProgressRecipes', JSON.stringify(newObj));
+    } if (obj) {
+      const objKeys = Object.keys(obj.meals);
+      const results = objKeys.some((recipe) => recipe === id);
+      if (!results) {
+        const newObj = JSON.parse(localStorage.getItem('inProgressRecipes'));
+        newObj.meals[id] = [];
+        localStorage.setItem('inProgressRecipes', JSON.stringify(newObj));
+      }
+    }
+  };
+
+  const checkLength = () => {
+    if (meals.length > 0) {
+      const results = ingredients.filter((ingredient) => meals[0][ingredient]);
+      console.log(ingredients);
+      console.log(meals);
+      console.log(results);
+      return results.length;
+    }
+  };
+
+  const checkInputs = () => {
+    const obj = JSON.parse(localStorage.getItem('inProgressRecipes'));
+    if (obj) {
+      const array = obj.meals[id];
+      if (ingredientsList.length >= checkLength()) {
+        const containsAll = ingredientsList.every((element) => array.includes(element));
+        setDisabled(!containsAll);
+      }
+    }
+  };
+
   useEffect(() => {
     const fetchMealsId = async () => {
       const response = await mealsIdAPI(id);
@@ -42,11 +83,31 @@ export default function FoodsInProgress() {
       filterMeasuresFunction(response);
     };
     fetchMealsId();
+
+    const verifyFavoriteRecipes = () => {
+      const storage = JSON.parse(localStorage.getItem('favoriteRecipes')) || [];
+      console.log(storage);
+      const results = storage.some((recipe) => recipe.id === id);
+      if (results) {
+        setIsFavorite(true);
+      } else {
+        setIsFavorite(false);
+      }
+    };
+    getStorageFunction();
+    setingredientsList(JSON
+      .parse(localStorage.getItem('inProgressRecipes')).meals[id] || []);
+    verifyFavoriteRecipes();
     setIsFood(true);
   }, [id, setMeals, setIsFood]);
 
+  useEffect(() => {
+    checkInputs();
+  }, [ingredientsList]);
+
   const handleShare = () => {
-    const shareRecipe = navigator.clipboard.writeText(`http://localhost:3000${pathname}`);
+    const address = pathname.split('/i')[0];
+    const shareRecipe = navigator.clipboard.writeText(`http://localhost:3000${address}`);
     setIsShowingMessage(true);
     return shareRecipe;
   };
@@ -106,19 +167,24 @@ export default function FoodsInProgress() {
           </button>
           <p data-testid="instructions">{ meal.strInstructions }</p>
           <IngredientsInProgress
+            ingredientsList={ ingredientsList }
+            setingredientsList={ setingredientsList }
             recipes={ meals[0] }
             ingredients={ ingredients }
             measures={ measures }
             id={ id }
             isFood={ isFood }
           />
-          <button
-            type="button"
-            data-testid="finish-recipe-btn"
-            className="finish-recipe-btn"
-          >
-            Finish Recipe
-          </button>
+          <Link to="/done-recipes">
+            <button
+              type="button"
+              data-testid="finish-recipe-btn"
+              className="finish-recipe-btn"
+              disabled={ disabled }
+            >
+              Finish Recipe
+            </button>
+          </Link>
         </section>
       ))}
     </main>
