@@ -1,44 +1,36 @@
-import React, { useEffect, useState, useContext } from 'react';
+import React, { useEffect, useState } from 'react';
 import propTypes from 'prop-types';
-import AppContext from '../../context/Context/AppContext';
 import './style.css';
 
-function Input({ datatestid, isFood, filterId, type, id, value, measures }) {
+function Input({ isFood, filterId, type, id, value, measures }) {
   const [checkedInput, setCheckedInput] = useState(false);
-  const { inProgressRecipes, setInProgressRecipes } = useContext(AppContext);
-  /* const [strikethrough, setStrikethrough] = useState(false); */
 
   const handleClick = () => {
-    console.log(inProgressRecipes);
-    const obj = inProgressRecipes;
-    console.log(obj);
-    if (isFood) {
-      obj.meals[filterId].push(value);
-      setInProgressRecipes(obj);
-      localStorage.setItem('inProgressRecipes', JSON.stringify(inProgressRecipes));
-      setCheckedInput(true);
-      return;
-    }
-
-    obj.cocktails[filterId].push(value);
-    setInProgressRecipes(obj);
-    localStorage.setItem('inProgressRecipes', JSON.stringify(inProgressRecipes));
+    const obj = JSON.parse(localStorage.getItem('inProgressRecipes'));
+    const key = isFood ? 'meals' : 'cocktails';
+    obj[key][filterId].push(value);
+    localStorage.setItem('inProgressRecipes', JSON.stringify(obj));
+    const input = document.getElementById(id);
+    input.setAttribute('checked', 'checked');
     setCheckedInput(true);
   };
 
-  useEffect(() => {
-    const filterFunction = () => {
-      const storage = JSON.parse(localStorage.getItem('inProgressRecipes'));
-      /* setInProgressRecipes(JSON.parse(localStorage.getItem('inProgressRecipes'))); */
-      if (storage) {
-        const recipe = isFood ? storage.meals[filterId] : storage.cocktails[filterId];
-        const results = recipe.some((ingredient) => ingredient === value);
+  const filterFunction = () => {
+    const obj = JSON.parse(localStorage.getItem('inProgressRecipes'));
+    const key = isFood ? 'meals' : 'cocktails';
+    const array = obj[key][filterId];
+    if (array) {
+      const results = array.some((ingredient) => ingredient === value);
+      const input = document.getElementById(id);
+      if (results) {
+        input.setAttribute('checked', 'checked');
         setCheckedInput(results);
       }
-      setInProgressRecipes(storage);
-    };
+    }
+  };
+
+  useEffect(() => {
     filterFunction();
-  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   return (
@@ -49,7 +41,7 @@ function Input({ datatestid, isFood, filterId, type, id, value, measures }) {
         id={ id }
         value={ value }
         checked={ checkedInput }
-        data-testid={ datatestid }
+        data-testid={ id }
       />
       <p
         className={ checkedInput ? 'riscado' : '' }

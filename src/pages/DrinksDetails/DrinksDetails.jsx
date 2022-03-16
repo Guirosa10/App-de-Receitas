@@ -99,16 +99,6 @@ export default function DrinksDetails() {
     }
   };
 
-  const startRecipe = () => {
-    const previousObj = JSON
-      .parse(localStorage.getItem('inProgressRecipes')) || { cocktails: {} };
-    previousObj.cocktails[id] = [];
-    if (!previousObj.meals) {
-      previousObj.meals = {};
-    }
-    localStorage.setItem('inProgressRecipes', JSON.stringify(previousObj));
-  };
-
   return (
     <main>
       { drinks && drinks.map((drink, index) => (
@@ -159,7 +149,6 @@ export default function DrinksDetails() {
               type="button"
               data-testid="start-recipe-btn"
               className="start-recipe-btn"
-              onClick={ startRecipe }
             >
               {
                 checkInProgressRecipe() ? 'Continue Recipe' : 'Start Recipe'

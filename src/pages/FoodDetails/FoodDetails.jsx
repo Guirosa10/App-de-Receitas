@@ -19,7 +19,6 @@ export default function FoodDetails() {
   const [recomendation, setRecomendation] = useState([]);
   const [isShowingMessage, setIsShowingMessage] = useState(false);
   const [isFavorite, setIsFavorite] = useState(false);
-  // const [filteredIngredients, setFilteredIngredients] = useState([]);
 
   const filterIngredientsFunction = (array) => {
     const keys = Object.keys(array[0]);
@@ -100,16 +99,6 @@ export default function FoodDetails() {
     }
   };
 
-  const startRecipe = () => {
-    const previousObj = JSON
-      .parse(localStorage.getItem('inProgressRecipes')) || { meals: {} };
-    previousObj.meals[id] = [];
-    if (!previousObj.cocktails) {
-      previousObj.cocktails = {};
-    }
-    localStorage.setItem('inProgressRecipes', JSON.stringify(previousObj));
-  };
-
   return (
     <main>
       { meals && meals.map((meal) => (
@@ -161,7 +150,6 @@ export default function FoodDetails() {
               type="button"
               data-testid="start-recipe-btn"
               className="start-recipe-btn"
-              onClick={ startRecipe }
             >
               {
                 checkInProgressRecipe() ? 'Continue Recipe' : 'Start Recipe'
