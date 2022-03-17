@@ -40,3 +40,9 @@ export const cocktailsIdAPI = async (id) => {
     .then((results) => results.json());
   return drinks;
 };
+
+export const fetchRandomDrinks = async () => {
+  const { drinks } = await fetch('https://www.thecocktaildb.com/api/json/v1/1/random.php')
+    .then((response) => response.json());
+  return drinks[0];
+};
