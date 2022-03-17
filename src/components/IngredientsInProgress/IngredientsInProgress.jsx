@@ -6,21 +6,6 @@ import Input from '../input/input';
 function IngredientsInProgress({
   isFood, id, ingredients, measures, recipes, count, setCount }) {
   useEffect(() => {
-    /* const obj = JSON.parse(localStorage.getItem('inProgressRecipes'));
-    const key = isFood ? 'meals' : 'cocktails';
-    if (!obj) {
-      const newObj = { meals: {}, cocktails: {} };
-      newObj[key][id] = [];
-      localStorage.setItem('inProgressRecipes', JSON.stringify(newObj));
-    } if (obj) {
-      const objKeys = Object.keys(obj[key]);
-      const results = objKeys.some((recipe) => recipe === id);
-      if (!results) {
-        const newObj = JSON.parse(localStorage.getItem('inProgressRecipes'));
-        newObj[key][id] = [];
-        localStorage.setItem('inProgressRecipes', JSON.stringify(newObj));
-      }
-    } */
   }, []);
 
   return (
