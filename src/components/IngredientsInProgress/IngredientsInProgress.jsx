@@ -1,7 +1,7 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import React, { useEffect } from 'react';
 import PropTypes from 'prop-types';
-import Input from '../input/Input';
+import Input from '../input/input';
 
 function IngredientsInProgress({
   isFood, id, ingredients, measures, recipes, count, setCount }) {
