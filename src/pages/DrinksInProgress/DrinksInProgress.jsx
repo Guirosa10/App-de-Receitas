@@ -1,5 +1,6 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import React, { useEffect, useContext, useState } from 'react';
-import { useParams, useLocation, Link } from 'react-router-dom';
+import { useParams, useLocation } from 'react-router-dom';
 import AppContext from '../../context/Context/AppContext';
 import { cocktailsIdAPI } from '../../services/cocktailsAPI';
 import IngredientsInProgress
@@ -7,6 +8,7 @@ from '../../components/IngredientsInProgress/IngredientsInProgress';
 import shareIcon from '../../images/shareIcon.svg';
 import whiteHeartIcon from '../../images/whiteHeartIcon.svg';
 import blackHeartIcon from '../../images/blackHeartIcon.svg';
+import FinishRecipeButton from '../../components/FinishRecipeButton/FinishRecipeButton';
 
 export default function FoodsInProgress() {
   const {
@@ -21,6 +23,8 @@ export default function FoodsInProgress() {
   const [measures, setMeasures] = useState([]);
   const [isShowingMessage, setIsShowingMessage] = useState(false);
   const [isFavorite, setIsFavorite] = useState(false);
+  const [disabled, setDisabled] = useState(true);
+  const [count, setCount] = useState(0);
 
   const filterIngredientsFunction = (array) => {
     const keys = Object.keys(array[0]);
@@ -32,6 +36,23 @@ export default function FoodsInProgress() {
     const keys = Object.keys(array[0]);
     const results = keys.filter((key) => key && key.includes('strMeasure'));
     setMeasures(results);
+  };
+
+  const getStorageFunction = () => {
+    const obj = JSON.parse(localStorage.getItem('inProgressRecipes'));
+    if (!obj) {
+      const newObj = { meals: {}, cocktails: {} };
+      newObj.cocktails[id] = [];
+      localStorage.setItem('inProgressRecipes', JSON.stringify(newObj));
+    } if (obj) {
+      const objKeys = Object.keys(obj.cocktails);
+      const results = objKeys.some((recipe) => recipe === id);
+      if (!results) {
+        const newObj = JSON.parse(localStorage.getItem('inProgressRecipes'));
+        newObj.cocktails[id] = [];
+        localStorage.setItem('inProgressRecipes', JSON.stringify(newObj));
+      }
+    }
   };
 
   useEffect(() => {
@@ -53,9 +74,22 @@ export default function FoodsInProgress() {
         setIsFavorite(false);
       }
     };
+    getStorageFunction();
     verifyFavoriteRecipes();
     setIsFood(false);
   }, [id, setDrinks, setIsFood]);
+
+  useEffect(() => {
+    const obj = JSON.parse(localStorage.getItem('inProgressRecipes'));
+    const array = obj.cocktails[id];
+    setCount(array.length);
+    if (drinks.length > 0) {
+      const results = ingredients.filter((ingredient) => drinks[0][ingredient]);
+      if (count >= results.length) {
+        setDisabled(false);
+      }
+    }
+  }, [count]);
 
   const handleShare = () => {
     const address = pathname.split('/i')[0];
@@ -119,22 +153,23 @@ export default function FoodsInProgress() {
           </button>
           <p data-testid="instructions">{ drink.strInstructions }</p>
           <IngredientsInProgress
+            count={ count }
+            setCount={ setCount }
             recipes={ drinks[0] }
             ingredients={ ingredients }
             measures={ measures }
             id={ id }
             isFood={ isFood }
           />
-          <Link to="/done-recipes">
-            <button
-              type="button"
-              data-testid="finish-recipe-btn"
-              className="finish-recipe-btn"
-              disabled
-            >
-              Finish Recipe
-            </button>
-          </Link>
+          <FinishRecipeButton
+            recipe={ drinks[0] }
+            ingredients={ ingredients }
+            datatestid="finish-recipe-btn"
+            className="finish-recipe-btn"
+            disabled={ disabled }
+            setDisabled={ setDisabled }
+            count={ count }
+          />
         </section>
       ))}
     </main>

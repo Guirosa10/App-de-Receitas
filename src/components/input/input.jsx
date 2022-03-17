@@ -4,7 +4,7 @@ import propTypes from 'prop-types';
 import './style.css';
 
 function Input({
-  isFood, filterId, type, id, value, measures, setingredientsList, ingredientsList }) {
+  isFood, filterId, type, id, value, measures, count, setCount }) {
   const [checkedInput, setCheckedInput] = useState(false);
 
   const handleClick = () => {
@@ -15,7 +15,7 @@ function Input({
     const input = document.getElementById(id);
     input.setAttribute('checked', 'checked');
     setCheckedInput(true);
-    setingredientsList([...ingredientsList, value]);
+    setCount(count + 1);
   };
 
   const filterFunction = () => {

@@ -4,7 +4,7 @@ import PropTypes from 'prop-types';
 import Input from '../input/Input';
 
 function IngredientsInProgress({
-  isFood, id, ingredients, measures, recipes, setingredientsList, ingredientsList }) {
+  isFood, id, ingredients, measures, recipes, count, setCount }) {
   useEffect(() => {
     /* const obj = JSON.parse(localStorage.getItem('inProgressRecipes'));
     const key = isFood ? 'meals' : 'cocktails';
@@ -32,8 +32,8 @@ function IngredientsInProgress({
             data-testid={ `${index}-ingredient-step` }
           >
             <Input
-              setingredientsList={ setingredientsList }
-              ingredientsList={ ingredientsList }
+              setCount={ setCount }
+              count={ count }
               isFood={ isFood }
               type="checkbox"
               id={ `${index}-ingredient` }

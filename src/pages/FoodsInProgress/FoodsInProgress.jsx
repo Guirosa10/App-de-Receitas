@@ -1,5 +1,6 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import React, { useEffect, useContext, useState } from 'react';
-import { useParams, useLocation, Link } from 'react-router-dom';
+import { useParams, useLocation } from 'react-router-dom';
 import AppContext from '../../context/Context/AppContext';
 import { mealsIdAPI } from '../../services/mealsAPI';
 import IngredientsInProgress
@@ -7,14 +8,14 @@ from '../../components/IngredientsInProgress/IngredientsInProgress';
 import shareIcon from '../../images/shareIcon.svg';
 import whiteHeartIcon from '../../images/whiteHeartIcon.svg';
 import blackHeartIcon from '../../images/blackHeartIcon.svg';
+import FinishRecipeButton from '../../components/FinishRecipeButton/FinishRecipeButton';
 
 export default function FoodsInProgress() {
   const {
     meals,
     setMeals,
     isFood,
-    setIsFood,
-  } = useContext(AppContext);
+    setIsFood } = useContext(AppContext);
 
   const { id } = useParams();
   const { pathname } = useLocation();
@@ -23,7 +24,7 @@ export default function FoodsInProgress() {
   const [isShowingMessage, setIsShowingMessage] = useState(false);
   const [isFavorite, setIsFavorite] = useState(false);
   const [disabled, setDisabled] = useState(true);
-  const [ingredientsList, setingredientsList] = useState([]);
+  const [count, setCount] = useState(0);
 
   const filterIngredientsFunction = (array) => {
     const keys = Object.keys(array[0]);
@@ -54,27 +55,6 @@ export default function FoodsInProgress() {
     }
   };
 
-  const checkLength = () => {
-    if (meals.length > 0) {
-      const results = ingredients.filter((ingredient) => meals[0][ingredient]);
-      console.log(ingredients);
-      console.log(meals);
-      console.log(results);
-      return results.length;
-    }
-  };
-
-  const checkInputs = () => {
-    const obj = JSON.parse(localStorage.getItem('inProgressRecipes'));
-    if (obj) {
-      const array = obj.meals[id];
-      if (ingredientsList.length >= checkLength()) {
-        const containsAll = ingredientsList.every((element) => array.includes(element));
-        setDisabled(!containsAll);
-      }
-    }
-  };
-
   useEffect(() => {
     const fetchMealsId = async () => {
       const response = await mealsIdAPI(id);
@@ -86,7 +66,6 @@ export default function FoodsInProgress() {
 
     const verifyFavoriteRecipes = () => {
       const storage = JSON.parse(localStorage.getItem('favoriteRecipes')) || [];
-      console.log(storage);
       const results = storage.some((recipe) => recipe.id === id);
       if (results) {
         setIsFavorite(true);
@@ -95,15 +74,21 @@ export default function FoodsInProgress() {
       }
     };
     getStorageFunction();
-    setingredientsList(JSON
-      .parse(localStorage.getItem('inProgressRecipes')).meals[id] || []);
     verifyFavoriteRecipes();
     setIsFood(true);
   }, [id, setMeals, setIsFood]);
 
   useEffect(() => {
-    checkInputs();
-  }, [ingredientsList]);
+    const obj = JSON.parse(localStorage.getItem('inProgressRecipes'));
+    const array = obj.meals[id];
+    setCount(array.length);
+    if (meals.length > 0) {
+      const results = ingredients.filter((ingredient) => meals[0][ingredient]);
+      if (count >= results.length) {
+        setDisabled(false);
+      }
+    }
+  }, [count]);
 
   const handleShare = () => {
     const address = pathname.split('/i')[0];
@@ -167,24 +152,23 @@ export default function FoodsInProgress() {
           </button>
           <p data-testid="instructions">{ meal.strInstructions }</p>
           <IngredientsInProgress
-            ingredientsList={ ingredientsList }
-            setingredientsList={ setingredientsList }
+            count={ count }
+            setCount={ setCount }
             recipes={ meals[0] }
             ingredients={ ingredients }
             measures={ measures }
             id={ id }
             isFood={ isFood }
           />
-          <Link to="/done-recipes">
-            <button
-              type="button"
-              data-testid="finish-recipe-btn"
-              className="finish-recipe-btn"
-              disabled={ disabled }
-            >
-              Finish Recipe
-            </button>
-          </Link>
+          <FinishRecipeButton
+            recipe={ meals[0] }
+            ingredients={ ingredients }
+            datatestid="finish-recipe-btn"
+            className="finish-recipe-btn"
+            disabled={ disabled }
+            setDisabled={ setDisabled }
+            count={ count }
+          />
         </section>
       ))}
     </main>
