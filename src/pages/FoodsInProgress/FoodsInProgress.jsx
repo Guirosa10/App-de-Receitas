@@ -176,4 +176,4 @@ export default function FoodsInProgress() {
 }
 
 // feito
-// página de progresso pronta, sem erros
+// Correção Style Lint
