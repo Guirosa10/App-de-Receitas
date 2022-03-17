@@ -1,4 +1,4 @@
-import React, { useEffect, useContext } from 'react';
+import React, { useEffect, useContext, useState } from 'react';
 import { useHistory } from 'react-router';
 import Footer from '../../components/Footer/Footer';
 import Header from '../../components/Header/Header';
@@ -6,12 +6,16 @@ import AppContext from '../../context/Context/AppContext';
 
 function Profile() {
   const { setSearchRender } = useContext(AppContext);
+  const [email, setEmail] = useState('');
 
   useEffect(() => {
     setSearchRender(false);
-  }, [setSearchRender]);
+    const getEmail = JSON.parse(localStorage.getItem('user'));
+    if (getEmail) {
+      setEmail(getEmail.email);
+    }
+  }, []);
 
-  const getEmail = JSON.parse(localStorage.getItem('user'));
   const history = useHistory();
 
   const toFavoriteRecipes = () => {
@@ -32,7 +36,7 @@ function Profile() {
       <Header title="Profile" />
       <section>
         <p data-testid="profile-email">
-          {getEmail.email}
+          {email}
         </p>
         <button
           type="button"
