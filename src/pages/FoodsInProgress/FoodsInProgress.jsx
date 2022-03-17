@@ -174,3 +174,6 @@ export default function FoodsInProgress() {
     </main>
   );
 }
+
+// feito
+// página de progresso pronta, sem erros
