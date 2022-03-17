@@ -108,6 +108,7 @@ export default function DrinksDetails() {
             src={ drink.strDrinkThumb }
             alt={ drink.idDrink }
             key={ drink.idDrink }
+            width="360px"
           />
           <h3 data-testid="recipe-title">{ drink.strDrink }</h3>
           <p data-testid="recipe-category">

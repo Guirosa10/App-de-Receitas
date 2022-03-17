@@ -168,6 +168,7 @@ export default function FoodsInProgress() {
             disabled={ disabled }
             setDisabled={ setDisabled }
             count={ count }
+            isFood={ isFood }
           />
         </section>
       ))}
