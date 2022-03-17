@@ -11,7 +11,7 @@ import whiteHeartIcon from '../../images/whiteHeartIcon.svg';
 import blackHeartIcon from '../../images/blackHeartIcon.svg';
 
 export default function FoodDetails() {
-  const { meals, setMeals, favorite, setFavorite } = useContext(AppContext);
+  const { meals, setMeals } = useContext(AppContext);
   const { id } = useParams();
   const { pathname } = useLocation();
   const [ingredients, setIngredients] = useState([]);
@@ -60,12 +60,25 @@ export default function FoodDetails() {
     verifyFavoriteRecipes();
   }, [id, setMeals]);
 
+  const checkInProgressRecipe = () => {
+    const storage = JSON.parse(localStorage.getItem('inProgressRecipes'));
+    if (storage) {
+      const values = Object.keys(storage.meals);
+      const results = values.some((item) => item === id);
+      if (results) {
+        return true;
+      }
+      return false;
+    }
+    return false;
+  };
+
   const handleShare = () => {
     const shareRecipe = navigator.clipboard.writeText(`http://localhost:3000${pathname}`);
     setIsShowingMessage(true);
     return shareRecipe;
   };
-
+  // função de salvar
   const saveFavorite = () => {
     if (isFavorite) {
       setIsFavorite(false);
@@ -79,7 +92,6 @@ export default function FoodDetails() {
         name: meals[0].strMeal,
         image: meals[0].strMealThumb,
       };
-      setFavorite([...favorite, newObj]);
       setIsFavorite(true);
       const previousObjects = JSON.parse(localStorage.getItem('favoriteRecipes')) || [];
       const updatedObjects = [...previousObjects, newObj];
@@ -139,7 +151,9 @@ export default function FoodDetails() {
               data-testid="start-recipe-btn"
               className="start-recipe-btn"
             >
-              Start Recipe
+              {
+                checkInProgressRecipe() ? 'Continue Recipe' : 'Start Recipe'
+              }
             </button>
           </Link>
         </section>

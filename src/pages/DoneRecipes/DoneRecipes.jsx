@@ -10,6 +10,17 @@ export default function DoneRecipes() {
   }, [setSearchRender]);
 
   return (
-    <Header title="Done Recipes" />
+    <div>
+      <Header title="Done Recipes" />
+      <button data-testid="filter-by-all-btn" type="button" onClick>
+        All
+      </button>
+      <button data-testid="filter-by-food-btn" type="button" onClick>
+        Food
+      </button>
+      <button data-testid="filter-by-drink-btn" type="button" onClick>
+        Drink
+      </button>
+    </div>
   );
 }

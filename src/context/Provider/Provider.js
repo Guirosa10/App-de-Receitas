@@ -8,7 +8,10 @@ function Provider({ children }) {
   const [drinks, setDrinks] = useState([]);
   const [isFood, setIsFood] = useState(true);
   const [searchRender, setSearchRender] = useState(true);
-  const [favorite, setFavorite] = useState([]);
+  const [favorites, setFavorites] = useState(JSON
+    .parse(localStorage.getItem('favoriteRecipes')));
+  const [inProgressRecipes, setInProgressRecipes] = useState(JSON.parse(localStorage
+    .getItem('inProgressRecipes')));
 
   const value = {
     login,
@@ -21,8 +24,10 @@ function Provider({ children }) {
     setIsFood,
     searchRender,
     setSearchRender,
-    favorite,
-    setFavorite,
+    favorites,
+    setFavorites,
+    inProgressRecipes,
+    setInProgressRecipes,
   };
 
   return (
