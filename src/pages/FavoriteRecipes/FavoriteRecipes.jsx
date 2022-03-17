@@ -26,7 +26,11 @@ export default function FavoriteRecipes() {
               { favorite.name }
 
             </h2>
-            <img src={ favorite.image } alt={ favorite.name } />
+            <img
+              src={ favorite.image }
+              alt={ favorite.name }
+              width="360px"
+            />
             <p data-testid={ `${index}-horizontal-top-text` }>{ favorite.category }</p>
             {
               favorite.type === 'food'
