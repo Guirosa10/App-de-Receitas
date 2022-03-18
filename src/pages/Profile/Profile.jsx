@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import React, { useEffect, useContext, useState } from 'react';
 import { useHistory } from 'react-router';
 import Footer from '../../components/Footer/Footer';

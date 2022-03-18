@@ -13,41 +13,55 @@ function Header({ title }) {
   const history = useHistory();
 
   return (
-    <header>
-      <button
-        type="button"
-        onClick={ () => history.push('/profile') }
-      >
-        <img
-          src={ profileIcon }
-          data-testid="profile-top-btn"
-          alt="perfil-Icon"
-        />
-      </button>
-      <h2
-        data-testid="page-title"
-      >
-        { title }
-      </h2>
-      {
-        searchRender && (
+    <header className="container-header">
+      <section className="container-header-top">
+        <button
+          className="profile-button"
+          type="button"
+          onClick={ () => history.push('/profile') }
+        >
+          <img
+            className="profile-icon"
+            src={ profileIcon }
+            data-testid="profile-top-btn"
+            alt="perfil-Icon"
+          />
+        </button>
+        <h2
+          className="title"
+          data-testid="page-title"
+        >
+          { title }
+        </h2>
+        { searchRender && (
           <button
+            className="search-button"
             type="button"
             onClick={ () => setSearchButton(!searchButton) }
           >
-            <img src={ searchIcon } data-testid="search-top-btn" alt="profileIcon" />
-          </button>
-        )
-      }
-      <section>
-        { searchButton && <input
-          type="text"
-          data-testid="search-input"
-          value={ searchInput }
-          onChange={ (e) => setSearchInput(e.target.value) }
-        /> }
+            <img
+              className="search-icon"
+              src={ searchIcon }
+              data-testid="search-top-btn"
+              alt="profileIcon"
+            />
+          </button>) }
       </section>
-      <SearchBar input={ searchInput } />
+      <section className="container-header-bottom">
+        <div>
+          { searchButton && (
+            <div>
+              <input
+                className="search-input"
+                type="text"
+                data-testid="search-input"
+                value={ searchInput }
+                onChange={ (e) => setSearchInput(e.target.value) }
+              />
+              <SearchBar input={ searchInput } />
+            </div>) }
+        </div>
+      </section>
     </header>
   );
 }

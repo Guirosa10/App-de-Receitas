@@ -1,11 +1,12 @@
 import React, { useContext, useEffect, useState } from 'react';
-import { mealsAPI, mealsListAPI } from '../../services/mealsAPI';
 import AppContext from '../../context/Context/AppContext';
+import { mealsAPI, mealsListAPI } from '../../services/mealsAPI';
 import { RECIPES_LENGTH, CATEGORIES_LENGTH } from '../../helpers/constants';
 import Header from '../../components/Header/Header';
 import Recipes from '../../components/Recipes/Recipes';
 import ButtonCategories from '../../components/ButtonCategories/ButtonCategories';
 import Footer from '../../components/Footer/Footer';
+import './Foods.css';
 
 export default function Foods() {
   const { meals, setMeals, setIsFood } = useContext(AppContext);
@@ -27,7 +28,7 @@ export default function Foods() {
   }, [setMeals, setIsFood]);
 
   return (
-    <main>
+    <main className="container-foods">
       <Header title="Foods" />
       <ButtonCategories list={ mealsList } />
       <Recipes data={ meals || [] } />

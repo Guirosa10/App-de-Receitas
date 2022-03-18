@@ -7,11 +7,12 @@ import drinkIcon from '../../images/drinkIcon.svg';
 export default function Footer() {
   return (
     <footer data-testid="footer">
-      <div>
+      <div className="container-footer">
         <Link
           to="/drinks"
         >
           <img
+            className="footer-icon"
             src={ drinkIcon }
             alt="Drinks"
             data-testid="drinks-bottom-btn"
@@ -23,6 +24,7 @@ export default function Footer() {
           to="/explore"
         >
           <img
+            className="footer-icon"
             src={ exploreIcon }
             alt="Explore"
             data-testid="explore-bottom-btn"
@@ -34,6 +36,7 @@ export default function Footer() {
           to="/foods"
         >
           <img
+            className="footer-icon"
             src={ mealIcon }
             alt="Foods"
             data-testid="food-bottom-btn"

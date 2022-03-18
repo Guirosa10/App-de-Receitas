@@ -37,6 +37,7 @@ export default function Button({ dataTestId, name }) {
 
   return (
     <button
+      className="category-button"
       type="button"
       data-testid={ dataTestId }
       onClick={ () => handleClick(name) }
