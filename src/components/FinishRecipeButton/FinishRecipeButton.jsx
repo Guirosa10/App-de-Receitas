@@ -7,7 +7,7 @@ import { HOUR, TIME_LIMITER } from '../../helpers/constants';
 export default function FinishRecipeButton({
   setDisabled, count, datatestid, className, disabled, recipe, ingredients, isFood }) {
   useEffect(() => {
-    if (recipe && ingredients) {
+    if (recipe && ingredients.length > 0) {
       console.log(recipe);
       console.log(ingredients);
       const filteredIngredients = (ingredients
