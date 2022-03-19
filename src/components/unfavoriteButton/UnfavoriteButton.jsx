@@ -3,7 +3,7 @@ import propTypes from 'prop-types';
 import AppContext from '../../context/Context/AppContext';
 import blackHeartIcon from '../../images/blackHeartIcon.svg';
 
-export default function UnfavoriteButton({ id }) {
+export default function UnfavoriteButton({ id, datatestid }) {
   const { setFavorites, favorites } = useContext(AppContext);
 
   const removeFromFavorites = () => {
@@ -19,7 +19,7 @@ export default function UnfavoriteButton({ id }) {
       <img
         src={ blackHeartIcon }
         alt="Like icon"
-        data-testid="favorite-btn"
+        data-testid={ datatestid }
       />
     </button>
   );
