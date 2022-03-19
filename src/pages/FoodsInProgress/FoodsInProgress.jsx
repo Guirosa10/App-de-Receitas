@@ -152,6 +152,7 @@ export default function FoodsInProgress() {
           </button>
           <p data-testid="instructions">{ meal.strInstructions }</p>
           <IngredientsInProgress
+            setDisabled={ setDisabled }
             count={ count }
             setCount={ setCount }
             recipes={ meals[0] }
