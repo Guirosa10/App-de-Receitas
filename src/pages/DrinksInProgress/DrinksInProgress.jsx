@@ -83,7 +83,7 @@ export default function FoodsInProgress() {
     const obj = JSON.parse(localStorage.getItem('inProgressRecipes'));
     const array = obj.cocktails[id];
     setCount(array.length);
-    if (drinks.length > 0) {
+    if (drinks.length > 0 && count > 0) {
       const results = ingredients.filter((ingredient) => drinks[0][ingredient]);
       if (count >= results.length) {
         setDisabled(false);
@@ -153,6 +153,7 @@ export default function FoodsInProgress() {
           </button>
           <p data-testid="instructions">{ drink.strInstructions }</p>
           <IngredientsInProgress
+            setDisabled={ setDisabled }
             count={ count }
             setCount={ setCount }
             recipes={ drinks[0] }

@@ -7,17 +7,15 @@ import { HOUR, TIME_LIMITER } from '../../helpers/constants';
 export default function FinishRecipeButton({
   setDisabled, count, datatestid, className, disabled, recipe, ingredients, isFood }) {
   useEffect(() => {
-    if (recipe && ingredients) {
-      console.log(recipe);
-      console.log(ingredients);
+    if (recipe && ingredients.length > 0) {
       const filteredIngredients = (ingredients
         .filter((ingredient) => recipe[ingredient]));
-      console.log(filteredIngredients.length);
-      if (filteredIngredients.length > 0 && count >= filteredIngredients.length) {
+
+      if (filteredIngredients.length > 0 && count === filteredIngredients.length) {
         setDisabled(false);
       }
     }
-  }, [recipe, ingredients]);
+  }, [recipe, ingredients, count]);
 
   const history = useHistory();
 
@@ -49,9 +47,13 @@ export default function FinishRecipeButton({
       doneDate: getTime(),
       tags: recipe.strTags ? recipe.strTags.split(',') : [],
     };
+    const id = isFood ? recipe.idMeal : recipe.idDrink;
     const previousArray = JSON.parse(localStorage.getItem('doneRecipes')) || [];
-    const saveNewArray = [...previousArray, obj];
-    localStorage.setItem('doneRecipes', JSON.stringify(saveNewArray));
+    const results = previousArray.some((element) => element.id === id);
+    if (!results) {
+      const saveNewArray = [...previousArray, obj];
+      localStorage.setItem('doneRecipes', JSON.stringify(saveNewArray));
+    }
     history.push('/done-recipes');
   };
 
