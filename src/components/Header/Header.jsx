@@ -40,14 +40,18 @@ function Header({ title }) {
         )
       }
       <section>
-        { searchButton && <input
-          type="text"
-          data-testid="search-input"
-          value={ searchInput }
-          onChange={ (e) => setSearchInput(e.target.value) }
-        /> }
+        { searchButton && (
+          <>
+            <input
+              type="text"
+              data-testid="search-input"
+              value={ searchInput }
+              onChange={ (e) => setSearchInput(e.target.value) }
+            />
+            <SearchBar input={ searchInput } />
+          </>)}
       </section>
-      <SearchBar input={ searchInput } />
+
     </header>
   );
 }

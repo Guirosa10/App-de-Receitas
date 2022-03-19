@@ -46,3 +46,9 @@ export const fetchRandomMeal = async () => {
     .then((response) => response.json());
   return meals[0];
 };
+
+export const fetchIngredients = async () => {
+  const { meals } = await fetch('https://www.themealdb.com/api/json/v1/1/list.php?i=list')
+    .then((response) => response.json());
+  return meals;
+};
