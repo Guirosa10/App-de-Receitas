@@ -95,7 +95,9 @@ export default function FoodDetails() {
       setIsFavorite(true);
       const previousObjects = JSON.parse(localStorage.getItem('favoriteRecipes')) || [];
       const updatedObjects = [...previousObjects, newObj];
-      localStorage.setItem('favoriteRecipes', JSON.stringify(updatedObjects));
+      const nonRepeatedObjects = [...new Map(updatedObjects.map((it) => [it.id, it]))
+        .values()];
+      localStorage.setItem('favoriteRecipes', JSON.stringify(nonRepeatedObjects));
     }
   };
 
