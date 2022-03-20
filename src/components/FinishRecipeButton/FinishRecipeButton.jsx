@@ -1,25 +1,22 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import React, { useEffect /* useState */ } from 'react';
 import propTypes from 'prop-types';
-import { /* Link */ useHistory } from 'react-router-dom';
+import { useHistory } from 'react-router-dom';
 import { HOUR, TIME_LIMITER } from '../../helpers/constants';
 
 export default function FinishRecipeButton({
   setDisabled, count, datatestid, className, disabled, recipe, ingredients, isFood }) {
+  const history = useHistory();
+
   useEffect(() => {
     if (recipe && ingredients) {
-      console.log(recipe);
-      console.log(ingredients);
       const filteredIngredients = (ingredients
         .filter((ingredient) => recipe[ingredient]));
-      console.log(filteredIngredients.length);
       if (filteredIngredients.length > 0 && count >= filteredIngredients.length) {
         setDisabled(false);
       }
     }
   }, [recipe, ingredients]);
-
-  const history = useHistory();
 
   const getTime = () => {
     const now = new Date();
@@ -64,7 +61,6 @@ export default function FinishRecipeButton({
       onClick={ handleDoneRecipes }
     >
       Finish Recipe
-
     </button>
   );
 }

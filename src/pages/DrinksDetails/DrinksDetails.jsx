@@ -50,6 +50,7 @@ export default function DrinksDetails() {
     const verifyFavoriteRecipes = () => {
       const storage = JSON.parse(localStorage.getItem('favoriteRecipes')) || [];
       const results = storage.some((recipe) => recipe.id === id);
+
       if (results) {
         setIsFavorite(true);
       } else {
@@ -61,6 +62,7 @@ export default function DrinksDetails() {
 
   const checkInProgressRecipe = () => {
     const storage = JSON.parse(localStorage.getItem('inProgressRecipes'));
+
     if (storage) {
       const values = Object.keys(storage.cocktails);
       const results = values.some((item) => item === id);
@@ -74,10 +76,12 @@ export default function DrinksDetails() {
 
   const handleShare = () => {
     const shareRecipe = navigator.clipboard.writeText(`http://localhost:3000${pathname}`);
+
     setIsShowingMessage(true);
     setTimeout(() => {
       setIsShowingMessage(false);
     }, TWO_SECONDS);
+
     return shareRecipe;
   };
 
@@ -95,6 +99,7 @@ export default function DrinksDetails() {
         image: drinks[0].strDrinkThumb,
       };
       setIsFavorite(true);
+
       const previousObjects = JSON.parse(localStorage.getItem('favoriteRecipes')) || [];
       const updatedObjects = [...previousObjects, newObj];
       localStorage.setItem('favoriteRecipes', JSON.stringify(updatedObjects));
@@ -113,7 +118,7 @@ export default function DrinksDetails() {
               data-testid="recipe-photo"
             />
             <h3
-              className="title-details"
+              className="title"
               data-testid="recipe-title"
             >
               { drink.strDrink }
@@ -161,7 +166,7 @@ export default function DrinksDetails() {
           />
           <h5 className="title-details">Instructions</h5>
           <p
-            className="intructions"
+            className="instructions"
             data-testid="instructions"
           >
             { drink.strInstructions }
@@ -175,9 +180,7 @@ export default function DrinksDetails() {
                 type="button"
                 data-testid="start-recipe-btn"
               >
-                {
-                  checkInProgressRecipe() ? 'Continue Recipe' : 'Start Recipe'
-                }
+                { checkInProgressRecipe() ? 'Continue Recipe' : 'Start Recipe' }
               </button>
             </Link>
           </div>

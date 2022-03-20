@@ -24,19 +24,25 @@
   width: 340px;
 }
 
+.title {
+  color: red;
+  font-family: Galada , cursive;
+  font-size: 25px;
+  margin-bottom: 0;
+  max-width: 19ch;
+  overflow: hidden;
+  padding-top: 5px;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
 .title-details {
   color: red;
   font-family: Galada , cursive;
   font-size: 25px;
   margin-bottom: 0;
-  margin-left: 3px;
-  margin-right: 5px;
-  max-width: 25ch;
-  overflow: hidden;
   padding-top: 5px;
   text-align: center;
-  text-overflow: ellipsis;
-  white-space: nowrap;
 }
 
 .category {
@@ -75,6 +81,14 @@
   border-radius: 25px;
   color: white;
   padding: 10px;
+}
+
+.riscado {
+  text-decoration: line-through;
+}
+
+.container-instructions {
+  padding-bottom: 50px;
 }
 
 .instructions {
@@ -133,3 +147,7 @@
   position: fixed;
   width: 360px;
 }
+
+/* .riscado {
+  text-decoration: line-through;
+} */

@@ -50,8 +50,8 @@ export default function FoodDetails() {
 
     const verifyFavoriteRecipes = () => {
       const storage = JSON.parse(localStorage.getItem('favoriteRecipes')) || [];
-      console.log(storage);
       const results = storage.some((recipe) => recipe.id === id);
+
       if (results) {
         setIsFavorite(true);
       } else {
@@ -63,6 +63,7 @@ export default function FoodDetails() {
 
   const checkInProgressRecipe = () => {
     const storage = JSON.parse(localStorage.getItem('inProgressRecipes'));
+
     if (storage) {
       const values = Object.keys(storage.meals);
       const results = values.some((item) => item === id);
@@ -76,10 +77,12 @@ export default function FoodDetails() {
 
   const handleShare = () => {
     const shareRecipe = navigator.clipboard.writeText(`http://localhost:3000${pathname}`);
+
     setIsShowingMessage(true);
     setTimeout(() => {
       setIsShowingMessage(false);
     }, TWO_SECONDS);
+
     return shareRecipe;
   };
 
@@ -97,6 +100,7 @@ export default function FoodDetails() {
         image: meals[0].strMealThumb,
       };
       setIsFavorite(true);
+
       const previousObjects = JSON.parse(localStorage.getItem('favoriteRecipes')) || [];
       const updatedObjects = [...previousObjects, newObj];
       localStorage.setItem('favoriteRecipes', JSON.stringify(updatedObjects));
@@ -115,7 +119,7 @@ export default function FoodDetails() {
               data-testid="recipe-photo"
             />
             <h3
-              className="title-details"
+              className="title"
               data-testid="recipe-title"
             >
               { meal.strMeal }
@@ -183,9 +187,7 @@ export default function FoodDetails() {
                 type="button"
                 data-testid="start-recipe-btn"
               >
-                {
-                  checkInProgressRecipe() ? 'Continue Recipe' : 'Start Recipe'
-                }
+                { checkInProgressRecipe() ? 'Continue Recipe' : 'Start Recipe' }
               </button>
             </Link>
           </div>

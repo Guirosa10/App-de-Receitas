@@ -9,10 +9,10 @@ function IngredientsInProgress({
   }, []);
 
   return (
-    <div>
+    <ul className="ingredients">
       {
         ingredients.map((ingredient, index) => (recipes[ingredient] && (
-          <div
+          <li
             key={ `${index}-ingredient` }
             data-testid={ `${index}-ingredient-step` }
           >
@@ -26,11 +26,11 @@ function IngredientsInProgress({
               value={ recipes[ingredient] }
               measures={ recipes[measures[index]] }
             />
-          </div>
+          </li>
         )
         ))
       }
-    </div>
+    </ul>
   );
 }
 

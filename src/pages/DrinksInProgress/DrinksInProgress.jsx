@@ -5,6 +5,7 @@ import AppContext from '../../context/Context/AppContext';
 import { cocktailsIdAPI } from '../../services/cocktailsAPI';
 import IngredientsInProgress
 from '../../components/IngredientsInProgress/IngredientsInProgress';
+import { TWO_SECONDS } from '../../helpers/constants';
 import shareIcon from '../../images/shareIcon.svg';
 import whiteHeartIcon from '../../images/whiteHeartIcon.svg';
 import blackHeartIcon from '../../images/blackHeartIcon.svg';
@@ -66,8 +67,8 @@ export default function FoodsInProgress() {
 
     const verifyFavoriteRecipes = () => {
       const storage = JSON.parse(localStorage.getItem('favoriteRecipes')) || [];
-      console.log(storage);
       const results = storage.some((recipe) => recipe.id === id);
+
       if (results) {
         setIsFavorite(true);
       } else {
@@ -82,7 +83,9 @@ export default function FoodsInProgress() {
   useEffect(() => {
     const obj = JSON.parse(localStorage.getItem('inProgressRecipes'));
     const array = obj.cocktails[id];
+
     setCount(array.length);
+
     if (drinks.length > 0) {
       const results = ingredients.filter((ingredient) => drinks[0][ingredient]);
       if (count >= results.length) {
@@ -94,7 +97,12 @@ export default function FoodsInProgress() {
   const handleShare = () => {
     const address = pathname.split('/i')[0];
     const shareRecipe = navigator.clipboard.writeText(`http://localhost:3000${address}`);
+
     setIsShowingMessage(true);
+    setTimeout(() => {
+      setIsShowingMessage(false);
+    }, TWO_SECONDS);
+
     return shareRecipe;
   };
 
@@ -112,6 +120,7 @@ export default function FoodsInProgress() {
         image: drinks[0].strDrinkThumb,
       };
       setIsFavorite(true);
+
       const previousObjects = JSON.parse(localStorage.getItem('favoriteRecipes')) || [];
       const updatedObjects = [...previousObjects, newObj];
       localStorage.setItem('favoriteRecipes', JSON.stringify(updatedObjects));
@@ -119,39 +128,58 @@ export default function FoodsInProgress() {
   };
 
   return (
-    <main>
+    <main className="container-details">
       { drinks && drinks.map((drink) => (
         <section key={ drink.idDrink }>
-          <img
-            src={ drink.strDrinkThumb }
-            alt={ drink.idDrink }
-            data-testid="recipe-photo"
-            width="360px"
-          />
-          <h3 data-testid="recipe-title">{ drink.strDrink }</h3>
-          <p data-testid="recipe-category">{ drink.strAlcoholic }</p>
-          <button
-            type="button"
-            data-testid="share-btn"
-            onClick={ handleShare }
-          >
+          <div className="container-title">
             <img
-              src={ shareIcon }
-              alt="Share icon"
+              className="image"
+              src={ drink.strDrinkThumb }
+              alt={ drink.idDrink }
+              data-testid="recipe-photo"
             />
-          </button>
-          { isShowingMessage ? <span>Link copied!</span> : null}
-          <button
-            type="button"
-            onClick={ saveFavorite }
+            <h3
+              className="title"
+              data-testid="recipe-title"
+            >
+              { drink.strDrink }
+            </h3>
+            <div>
+              <button
+                className="share-button"
+                type="button"
+                data-testid="share-btn"
+                onClick={ handleShare }
+              >
+                <img
+                  className="share-icon"
+                  src={ shareIcon }
+                  alt="Share icon"
+                />
+              </button>
+              <button
+                className="like-button"
+                type="button"
+                onClick={ saveFavorite }
+              >
+                <img
+                  className="like-icon"
+                  src={ isFavorite ? blackHeartIcon : whiteHeartIcon }
+                  alt="Like icon"
+                  data-testid="favorite-btn"
+                />
+              </button>
+            </div>
+          </div>
+          <p
+            className="category"
+            data-testid="recipe-category"
           >
-            <img
-              src={ isFavorite ? blackHeartIcon : whiteHeartIcon }
-              alt="Like icon"
-              data-testid="favorite-btn"
-            />
-          </button>
-          <p data-testid="instructions">{ drink.strInstructions }</p>
+            { drink.strAlcoholic }
+            { isShowingMessage ? ' - ' : null }
+            { isShowingMessage ? <span>Link copied!</span> : null}
+          </p>
+          <h5 className="title-details">Ingredients</h5>
           <IngredientsInProgress
             count={ count }
             setCount={ setCount }
@@ -161,6 +189,15 @@ export default function FoodsInProgress() {
             id={ id }
             isFood={ isFood }
           />
+          <h5 className="title-details">Instructions</h5>
+          <div className="container-instructions">
+            <p
+              className="instructions"
+              data-testid="instructions"
+            >
+              { drink.strInstructions }
+            </p>
+          </div>
           <FinishRecipeButton
             recipe={ drinks[0] }
             ingredients={ ingredients }

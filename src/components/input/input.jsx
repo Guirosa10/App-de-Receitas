@@ -1,7 +1,6 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import React, { useEffect, useState } from 'react';
 import propTypes from 'prop-types';
-import './style.css';
 
 function Input({
   isFood, filterId, type, id, value, measures, count, setCount }) {
@@ -37,24 +36,25 @@ function Input({
   }, []);
 
   return (
-    <>
-      <input
-        type={ type }
-        onChange={ handleClick }
-        id={ id }
-        value={ value }
-        checked={ checkedInput }
-        data-testid={ id }
-      />
-      <p
+    <div>
+      <label
         className={ checkedInput ? 'riscado' : '' }
+        htmlFor={ id }
       >
+        <input
+          type={ type }
+          onChange={ handleClick }
+          id={ id }
+          value={ value }
+          checked={ checkedInput }
+          data-testid={ id }
+        />
+        {' '}
         { value }
-        { measures ? '----' : null}
+        { measures ? ': ' : null}
         { measures }
-      </p>
-    </>
-
+      </label>
+    </div>
   );
 }
 
