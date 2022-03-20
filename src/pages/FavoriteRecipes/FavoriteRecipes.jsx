@@ -6,10 +6,11 @@ import UnfavoriteButton from '../../components/unfavoriteButton/UnfavoriteButton
 import ShareButton from '../../components/ShareButton/ShareButton';
 
 export default function FavoriteRecipes() {
-  const { setSearchRender, favorites } = useContext(AppContext);
+  const { setSearchRender, favorites, setFavorites } = useContext(AppContext);
   const [data, setData] = useState([]);
 
   const getFavorites = () => {
+    setFavorites(JSON.parse(localStorage.getItem('favoriteRecipes')));
     setData(favorites);
   };
   useEffect(() => {

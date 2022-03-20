@@ -95,7 +95,7 @@ export default function FoodDetails() {
       setIsFavorite(true);
       const previousObjects = JSON.parse(localStorage.getItem('favoriteRecipes')) || [];
       const updatedObjects = [...previousObjects, newObj];
-      const nonRepeatedObjects = [...new Map(updatedObjects.map((v) => [v.id, v]))
+      const nonRepeatedObjects = [...new Map(updatedObjects.map((it) => [it.id, it]))
         .values()];
       localStorage.setItem('favoriteRecipes', JSON.stringify(nonRepeatedObjects));
     }
