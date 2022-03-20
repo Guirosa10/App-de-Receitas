@@ -6,6 +6,7 @@ import { cocktailsAPI } from '../../services/cocktailsAPI';
 import Button from '../Button/Button';
 
 const ButtonCategories = ({ list }) => {
+  console.log(list);
   const { isFood, setMeals, setDrinks } = useContext(AppContext);
 
   const handleAllButton = async () => {

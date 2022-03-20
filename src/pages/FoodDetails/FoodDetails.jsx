@@ -5,10 +5,11 @@ import { mealsIdAPI } from '../../services/mealsAPI';
 import { cocktailsAPI } from '../../services/cocktailsAPI';
 import Ingredients from '../../components/Ingredients/Ingredients';
 import Recommended from '../../components/Recommended/Recommended';
-import { RECOMENDATION_LENGTH } from '../../helpers/constants';
+import { RECOMENDATION_LENGTH, TWO_SECONDS } from '../../helpers/constants';
 import shareIcon from '../../images/shareIcon.svg';
 import whiteHeartIcon from '../../images/whiteHeartIcon.svg';
 import blackHeartIcon from '../../images/blackHeartIcon.svg';
+import './FoodDetails.css';
 
 export default function FoodDetails() {
   const { meals, setMeals } = useContext(AppContext);
@@ -76,9 +77,12 @@ export default function FoodDetails() {
   const handleShare = () => {
     const shareRecipe = navigator.clipboard.writeText(`http://localhost:3000${pathname}`);
     setIsShowingMessage(true);
+    setTimeout(() => {
+      setIsShowingMessage(false);
+    }, TWO_SECONDS);
     return shareRecipe;
   };
-  // função de salvar
+
   const saveFavorite = () => {
     if (isFavorite) {
       setIsFavorite(false);
@@ -100,62 +104,91 @@ export default function FoodDetails() {
   };
 
   return (
-    <main>
+    <main className="container-details">
       { meals && meals.map((meal) => (
         <section key={ meal.idMeal }>
-          <img
-            src={ meal.strMealThumb }
-            alt={ meal.idMeal }
-            data-testid="recipe-photo"
-          />
-          <h3 data-testid="recipe-title">{ meal.strMeal }</h3>
-          <p data-testid="recipe-category">{ meal.strCategory }</p>
-          <button
-            type="button"
-            data-testid="share-btn"
-            onClick={ handleShare }
-          >
+          <div className="container-title">
             <img
-              src={ shareIcon }
-              alt="Share icon"
+              className="image"
+              src={ meal.strMealThumb }
+              alt={ meal.idMeal }
+              data-testid="recipe-photo"
             />
-          </button>
-          { isShowingMessage ? <span>Link copied!</span> : null}
-          <button
-            type="button"
-            onClick={ saveFavorite }
+            <h3
+              className="title-details"
+              data-testid="recipe-title"
+            >
+              { meal.strMeal }
+            </h3>
+            <div>
+              <button
+                className="share-button"
+                type="button"
+                data-testid="share-btn"
+                onClick={ handleShare }
+              >
+                <img
+                  className="share-icon"
+                  src={ shareIcon }
+                  alt="Share icon"
+                />
+              </button>
+              <button
+                className="like-button"
+                type="button"
+                onClick={ saveFavorite }
+              >
+                <img
+                  className="like-icon"
+                  src={ isFavorite ? blackHeartIcon : whiteHeartIcon }
+                  alt="Like icon"
+                  data-testid="favorite-btn"
+                />
+              </button>
+            </div>
+          </div>
+          <p
+            className="category"
+            data-testid="recipe-category"
           >
-            <img
-              src={ isFavorite ? blackHeartIcon : whiteHeartIcon }
-              alt="Like icon"
-              data-testid="favorite-btn"
-            />
-          </button>
-          <p data-testid="instructions">{ meal.strInstructions }</p>
+            { meal.strCategory }
+            { isShowingMessage ? ' - ' : null }
+            { isShowingMessage ? <span className="category">Link copied!</span> : null }
+          </p>
+          <h5 className="title-details">Ingredients</h5>
           <Ingredients
             recipes={ meals[0] }
             ingredients={ ingredients }
             measures={ measures }
           />
+          <h5 className="title-details">Instructions</h5>
+          <p
+            className="instructions"
+            data-testid="instructions"
+          >
+            { meal.strInstructions }
+          </p>
           <iframe
+            className="video-details"
             src={ `https://www.youtube.com/embed/${meal.strYoutube.split('=')[1]}` }
             title={ meal.strTags }
             data-testid="video"
-            height="205"
-            width="360"
           />
+          <h5 className="title-details">Recommended</h5>
           <Recommended data={ recomendation } />
-          <Link to={ `/foods/${id}/in-progress` }>
-            <button
-              type="button"
-              data-testid="start-recipe-btn"
-              className="start-recipe-btn"
-            >
-              {
-                checkInProgressRecipe() ? 'Continue Recipe' : 'Start Recipe'
-              }
-            </button>
-          </Link>
+          <div className="container-start-recipe-btn">
+            <Link to={ `/foods/${id}/in-progress` }>
+              <button
+                className="start-recipe-btn"
+                type="button"
+                data-testid="start-recipe-btn"
+              >
+                {
+                  checkInProgressRecipe() ? 'Continue Recipe' : 'Start Recipe'
+                }
+              </button>
+            </Link>
+          </div>
         </section>
       ))}
     </main>

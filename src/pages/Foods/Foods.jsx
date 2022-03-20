@@ -28,7 +28,7 @@ export default function Foods() {
   }, [setMeals, setIsFood]);
 
   return (
-    <main className="container-foods">
+    <main className="container-all">
       <Header title="Foods" />
       <ButtonCategories list={ mealsList } />
       <Recipes data={ meals || [] } />

@@ -28,7 +28,7 @@ export default function Drinks() {
   }, [setDrinks, setIsFood, setSearchRender]);
 
   return (
-    <main>
+    <main className="container-all">
       <Header title="Drinks" />
       <ButtonCategories list={ drinksList } />
       <Recipes data={ drinks || [] } />
