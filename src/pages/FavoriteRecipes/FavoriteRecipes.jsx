@@ -7,6 +7,7 @@ import UnfavoriteButton from '../../components/unfavoriteButton/UnfavoriteButton
 import ShareButton from '../../components/ShareButton/ShareButton';
 
 export default function FavoriteRecipes() {
+
   const {
     setSearchRender,
     favorites,
@@ -18,6 +19,10 @@ export default function FavoriteRecipes() {
   const getFavorites = () => {
     setData(favorites);
   };
+
+  useEffect(() => {
+    setFavorites(JSON.parse(localStorage.getItem('favoriteRecipes')));
+  }, []);
 
   useEffect(() => {
     setSearchRender(true);

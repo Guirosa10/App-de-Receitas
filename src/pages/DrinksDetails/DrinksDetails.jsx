@@ -102,7 +102,9 @@ export default function DrinksDetails() {
 
       const previousObjects = JSON.parse(localStorage.getItem('favoriteRecipes')) || [];
       const updatedObjects = [...previousObjects, newObj];
-      localStorage.setItem('favoriteRecipes', JSON.stringify(updatedObjects));
+      const nonRepeatedObjects = [...new Map(updatedObjects.map((v) => [v.id, v]))
+        .values()];
+      localStorage.setItem('favoriteRecipes', JSON.stringify(nonRepeatedObjects));
     }
   };
 
