@@ -1,8 +1,10 @@
+/* eslint-disable no-nested-ternary */
 import React, { useState, useContext } from 'react';
 import PropTypes from 'prop-types';
 import AppContext from '../../context/Context/AppContext';
 import { mealsAPI, mealsCategoriesAPI } from '../../services/mealsAPI';
 import { cocktailsAPI, cocktailsCategoriesAPI } from '../../services/cocktailsAPI';
+import { RECIPES_LENGTH } from '../../helpers/constants';
 
 export default function Button({ dataTestId, name }) {
   const { isFood, setMeals, setDrinks } = useContext(AppContext);
@@ -12,24 +14,20 @@ export default function Button({ dataTestId, name }) {
     if (toggle) {
       if (isFood) {
         const results = await mealsAPI();
-        results.length = 12;
-        setMeals(results);
+        setMeals(results.slice(0, RECIPES_LENGTH));
       } else {
         const results = await cocktailsAPI();
-        results.length = 12;
-        setDrinks(results);
+        setDrinks(results.slice(0, RECIPES_LENGTH));
       }
     }
 
     if (!toggle) {
       if (isFood) {
         const results = await mealsCategoriesAPI(category);
-        results.length = 12;
-        setMeals(results);
+        setMeals(results.slice(0, RECIPES_LENGTH));
       } else {
         const results = await cocktailsCategoriesAPI(category);
-        results.length = 12;
-        setDrinks(results);
+        setDrinks(results.slice(0, RECIPES_LENGTH));
       }
     }
     setToggle(!toggle);

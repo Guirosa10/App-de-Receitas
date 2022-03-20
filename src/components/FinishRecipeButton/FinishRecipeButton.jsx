@@ -9,14 +9,15 @@ export default function FinishRecipeButton({
   const history = useHistory();
 
   useEffect(() => {
-    if (recipe && ingredients) {
+    if (recipe && ingredients.length > 0) {
       const filteredIngredients = (ingredients
         .filter((ingredient) => recipe[ingredient]));
-      if (filteredIngredients.length > 0 && count >= filteredIngredients.length) {
+
+      if (filteredIngredients.length > 0 && count === filteredIngredients.length) {
         setDisabled(false);
       }
     }
-  }, [recipe, ingredients]);
+  }, [recipe, ingredients, count]);
 
   const getTime = () => {
     const now = new Date();
@@ -46,9 +47,13 @@ export default function FinishRecipeButton({
       doneDate: getTime(),
       tags: recipe.strTags ? recipe.strTags.split(',') : [],
     };
+    const id = isFood ? recipe.idMeal : recipe.idDrink;
     const previousArray = JSON.parse(localStorage.getItem('doneRecipes')) || [];
-    const saveNewArray = [...previousArray, obj];
-    localStorage.setItem('doneRecipes', JSON.stringify(saveNewArray));
+    const results = previousArray.some((element) => element.id === id);
+    if (!results) {
+      const saveNewArray = [...previousArray, obj];
+      localStorage.setItem('doneRecipes', JSON.stringify(saveNewArray));
+    }
     history.push('/done-recipes');
   };
 

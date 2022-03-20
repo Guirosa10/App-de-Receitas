@@ -10,8 +10,6 @@ function Provider({ children }) {
   const [searchRender, setSearchRender] = useState(true);
   const [favorites, setFavorites] = useState(JSON
     .parse(localStorage.getItem('favoriteRecipes')));
-  const [inProgressRecipes, setInProgressRecipes] = useState(JSON.parse(localStorage
-    .getItem('inProgressRecipes')));
   const [isShowing, setIsShowing] = useState(true);
 
   const value = {
@@ -27,8 +25,6 @@ function Provider({ children }) {
     setSearchRender,
     favorites,
     setFavorites,
-    inProgressRecipes,
-    setInProgressRecipes,
     isShowing,
     setIsShowing,
   };

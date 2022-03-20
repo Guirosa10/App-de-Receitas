@@ -86,7 +86,6 @@ export default function DoneRecipesCard({ data }) {
           >
             { `Done in ${item.doneDate}` }
           </h4>
-          { isShowingMessage ? <span>Link copied!</span> : null}
         </section>
       ))}
     </div>

@@ -3,7 +3,7 @@ import React, { useEffect } from 'react';
 import PropTypes from 'prop-types';
 import Input from '../input/input';
 
-function IngredientsInProgress({
+function IngredientsInProgress({ setDisabled,
   isFood, id, ingredients, measures, recipes, count, setCount }) {
   useEffect(() => {
   }, []);
@@ -17,6 +17,7 @@ function IngredientsInProgress({
             data-testid={ `${index}-ingredient-step` }
           >
             <Input
+              setDisabled={ setDisabled }
               setCount={ setCount }
               count={ count }
               isFood={ isFood }

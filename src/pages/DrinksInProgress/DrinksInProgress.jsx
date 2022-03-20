@@ -85,8 +85,7 @@ export default function FoodsInProgress() {
     const array = obj.cocktails[id];
 
     setCount(array.length);
-
-    if (drinks.length > 0) {
+    if (drinks.length > 0 && count > 0) {
       const results = ingredients.filter((ingredient) => drinks[0][ingredient]);
       if (count >= results.length) {
         setDisabled(false);
@@ -181,6 +180,7 @@ export default function FoodsInProgress() {
           </p>
           <h5 className="title-details">Ingredients</h5>
           <IngredientsInProgress
+            setDisabled={ setDisabled }
             count={ count }
             setCount={ setCount }
             recipes={ drinks[0] }
