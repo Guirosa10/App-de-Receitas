@@ -21,29 +21,31 @@ const ButtonCategories = ({ list }) => {
   };
 
   return (
-    <main>
-      <section>
+    <section className="container-category-button">
+      <div>
         <button
+          className="category-button"
           type="button"
           data-testid="All-category-filter"
           onClick={ handleAllButton }
         >
           All
         </button>
-        { list.map(({ strCategory }, index) => (
-          <div
-            key={ `${index}-button-category` }
+      </div>
+      { list.map(({ strCategory }, index) => (
+        <div
+          key={ `${index}-button-category` }
+        >
+          <Button
+            dataTestId={ `${strCategory}-category-filter` }
+            name={ strCategory }
           >
-            <Button
-              dataTestId={ `${strCategory}-category-filter` }
-              name={ strCategory }
-            >
-              { strCategory }
-            </Button>
-          </div>
-        )) }
-      </section>
-    </main>
+            { strCategory }
+          </Button>
+        </div>
+      )) }
+    </section>
+
   );
 };
 

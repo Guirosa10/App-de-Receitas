@@ -12,6 +12,7 @@ function Provider({ children }) {
     .parse(localStorage.getItem('favoriteRecipes')));
   const [ingredient, setIngredient] = useState('');
   const [automaticFilterByIngredient, setAutomaticFilterByIngredient] = useState(false);
+  const [isShowing, setIsShowing] = useState(true);
 
   const value = {
     login,
@@ -30,6 +31,8 @@ function Provider({ children }) {
     setAutomaticFilterByIngredient,
     ingredient,
     setIngredient,
+    isShowing,
+    setIsShowing,
   };
 
   return (

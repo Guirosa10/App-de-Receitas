@@ -51,7 +51,7 @@ export default function Drinks() {
   }, []);
 
   return (
-    <main>
+    <main className="container-all">
       <Header title="Drinks" />
       <ButtonCategories list={ drinksList } />
       <Recipes data={ drinks || [] } />

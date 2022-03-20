@@ -9,14 +9,20 @@ export default function UnfavoriteButton({ id, datatestid }) {
   const removeFromFavorites = () => {
     const storage = favorites;
     const results = storage.filter((favorite) => favorite.id !== id);
-    console.log(results);
+
     localStorage.setItem('favoriteRecipes', JSON.stringify(results));
     setFavorites(JSON.parse(localStorage.getItem('favoriteRecipes')));
   };
 
   return (
-    <button type="button" id={ id } onClick={ removeFromFavorites }>
+    <button
+      className="like-button-done"
+      type="button"
+      id={ id }
+      onClick={ removeFromFavorites }
+    >
       <img
+        className="like-icon-done"
         src={ blackHeartIcon }
         alt="Like icon"
         data-testid={ datatestid }

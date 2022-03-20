@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import React, { useEffect, useContext, useState } from 'react';
 import { useHistory } from 'react-router';
 import Footer from '../../components/Footer/Footer';
@@ -5,11 +6,13 @@ import Header from '../../components/Header/Header';
 import AppContext from '../../context/Context/AppContext';
 
 function Profile() {
-  const { setSearchRender } = useContext(AppContext);
+  const { setSearchRender, setIsShowing } = useContext(AppContext);
   const [email, setEmail] = useState('');
 
   useEffect(() => {
-    setSearchRender(false);
+    setSearchRender(true);
+    setIsShowing(false);
+
     const getEmail = JSON.parse(localStorage.getItem('user'));
     if (getEmail) {
       setEmail(getEmail.email);
@@ -32,13 +35,22 @@ function Profile() {
   };
 
   return (
-    <div>
+    <main className="container-done">
       <Header title="Profile" />
       <section>
-        <p data-testid="profile-email">
+        <p
+          className="info"
+        >
+          User logged in:
+        </p>
+        <p
+          className="email"
+          data-testid="profile-email"
+        >
           {email}
         </p>
         <button
+          className="profile-buttons"
           type="button"
           data-testid="profile-done-btn"
           onClick={ toDoneRecipes }
@@ -46,6 +58,7 @@ function Profile() {
           Done Recipes
         </button>
         <button
+          className="profile-buttons"
           type="button"
           data-testid="profile-favorite-btn"
           onClick={ toFavoriteRecipes }
@@ -53,6 +66,7 @@ function Profile() {
           Favorite Recipes
         </button>
         <button
+          className="profile-buttons"
           type="button"
           data-testid="profile-logout-btn"
           onClick={ clearLocalStorage }
@@ -61,7 +75,7 @@ function Profile() {
         </button>
       </section>
       <Footer />
-    </div>
+    </main>
   );
 }
 

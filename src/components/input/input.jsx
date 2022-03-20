@@ -1,7 +1,6 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import React, { useEffect, useState } from 'react';
 import propTypes from 'prop-types';
-import './style.css';
 
 function Input({
   setDisabled, isFood, filterId, type, id, value, measures, count, setCount }) {
@@ -23,12 +22,8 @@ function Input({
     }
     if (!checkedInput) {
       const array = obj[key][filterId];
-      console.log(array);
       const results = array.filter((res) => res !== value);
-      console.log(results);
       obj[key][filterId] = results;
-      console.log(obj[key][filterId]);
-      console.log(obj);
       localStorage.setItem('inProgressRecipes', JSON.stringify(obj));
       setCount(count - 1);
       setDisabled(true);
@@ -58,24 +53,25 @@ function Input({
   }, [checkedInput]);
 
   return (
-    <>
-      <input
-        type={ type }
-        onChange={ handleClick }
-        id={ id }
-        value={ value }
-        checked={ checkedInput }
-        data-testid={ id }
-      />
-      <p
+    <div>
+      <label
         className={ checkedInput ? 'riscado' : '' }
+        htmlFor={ id }
       >
+        <input
+          type={ type }
+          onChange={ handleClick }
+          id={ id }
+          value={ value }
+          checked={ checkedInput }
+          data-testid={ id }
+        />
+        {' '}
         { value }
-        { measures ? '----' : null}
+        { measures ? ': ' : null}
         { measures }
-      </p>
-    </>
-
+      </label>
+    </div>
   );
 }
 

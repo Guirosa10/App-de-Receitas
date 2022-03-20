@@ -3,9 +3,10 @@ import React, { useEffect, useContext, useState } from 'react';
 import Header from '../../components/Header/Header';
 import AppContext from '../../context/Context/AppContext';
 import DoneRecipesCard from '../../components/DoneRecipesCard/DoneRecipesCard';
+import './DoneRecipes.css';
 
 export default function DoneRecipes() {
-  const { setSearchRender } = useContext(AppContext);
+  const { setSearchRender, setIsShowing } = useContext(AppContext);
   const [data, setData] = useState([]);
 
   const getDoneRecipesStorage = () => {
@@ -14,7 +15,8 @@ export default function DoneRecipes() {
   };
 
   useEffect(() => {
-    setSearchRender(false);
+    setSearchRender(true);
+    setIsShowing(false);
     getDoneRecipesStorage();
   }, []);
 
@@ -33,30 +35,35 @@ export default function DoneRecipes() {
   };
 
   return (
-    <div>
+    <main className="container-done">
       <Header title="Done Recipes" />
-      <button
-        data-testid="filter-by-all-btn"
-        type="button"
-        onClick={ getDoneRecipesStorage }
-      >
-        All
-      </button>
-      <button
-        data-testid="filter-by-food-btn"
-        type="button"
-        onClick={ filterByFood }
-      >
-        Food
-      </button>
-      <button
-        data-testid="filter-by-drink-btn"
-        type="button"
-        onClick={ filterByDrink }
-      >
-        Drink
-      </button>
+      <div className="container-category-button">
+        <button
+          className="category-button"
+          data-testid="filter-by-all-btn"
+          type="button"
+          onClick={ getDoneRecipesStorage }
+        >
+          All
+        </button>
+        <button
+          className="category-button"
+          data-testid="filter-by-food-btn"
+          type="button"
+          onClick={ filterByFood }
+        >
+          Food
+        </button>
+        <button
+          className="category-button"
+          data-testid="filter-by-drink-btn"
+          type="button"
+          onClick={ filterByDrink }
+        >
+          Drink
+        </button>
+      </div>
       <DoneRecipesCard data={ data } />
-    </div>
+    </main>
   );
 }

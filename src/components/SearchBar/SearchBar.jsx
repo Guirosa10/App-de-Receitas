@@ -109,42 +109,63 @@ export default function SearchBar({ input }) {
   };
 
   return (
-    <div className="search-form-div">
-      <form className="search-form">
-        <input
-          type="radio"
-          name="um"
-          value="ingredient"
-          data-testid="ingredient-search-radio"
-          onChange={ (e) => setRadioOption(e.target.value) }
-          checked={ radioOption === 'ingredient' }
-        />
-        Busca por Ingrediente
-        <input
-          type="radio"
-          name="um"
-          value="name"
-          data-testid="name-search-radio"
-          onChange={ (e) => setRadioOption(e.target.value) }
-          checked={ radioOption === 'name' }
-        />
-        Busca por nome
-        <input
-          type="radio"
-          name="um"
-          value="firstLetter"
-          data-testid="first-letter-search-radio"
-          checked={ radioOption === 'firstLetter' }
-          onChange={ (e) => setRadioOption(e.target.value) }
-        />
-        Busca da primeira letra
-        <button
-          type="submit"
-          data-testid="exec-search-btn"
-          onClick={ handleSubmitButton }
-        >
-          Busca
-        </button>
+    <div className="container-search-bar">
+      <form>
+        <div>
+          <label htmlFor="ingredient-search">
+            <input
+              className="radio-search"
+              type="radio"
+              name="um"
+              id="ingredient-search"
+              value="ingredient"
+              data-testid="ingredient-search-radio"
+              onChange={ (e) => setRadioOption(e.target.value) }
+              checked={ radioOption === 'ingredient' }
+            />
+            Search by ingredient
+          </label>
+        </div>
+        <div>
+          <label htmlFor="name-search">
+            <input
+              className="radio-search"
+              type="radio"
+              name="um"
+              id="name-search"
+              value="name"
+              data-testid="name-search-radio"
+              onChange={ (e) => setRadioOption(e.target.value) }
+              checked={ radioOption === 'name' }
+            />
+            Search by name
+          </label>
+        </div>
+        <div>
+          <label htmlFor="first-letter-search">
+            <input
+              className="radio-search"
+              type="radio"
+              name="um"
+              id="first-letter-search"
+              value="firstLetter"
+              data-testid="first-letter-search-radio"
+              checked={ radioOption === 'firstLetter' }
+              onChange={ (e) => setRadioOption(e.target.value) }
+            />
+            Search by first letter
+          </label>
+        </div>
+        <div>
+          <button
+            className="search-bar-button"
+            type="submit"
+            data-testid="exec-search-btn"
+            onClick={ handleSubmitButton }
+          >
+            Search
+          </button>
+        </div>
       </form>
     </div>
   );

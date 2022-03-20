@@ -3,15 +3,15 @@ import PropTypes from 'prop-types';
 
 export default function Ingredients({ ingredients, measures, recipes }) {
   return (
-    <ul>
+    <ul className="ingredients">
       {
         ingredients.map((ingredient, index) => (recipes[ingredient] && (
           <li
             key={ `${index}-ingredient-name-and-measure` }
             data-testid={ `${index}-ingredient-name-and-measure` }
           >
-            { recipes[ingredient] }
-            { recipes[measures[index]] ? ' ----- ' : null}
+            { `- ${recipes[ingredient]}` }
+            { recipes[measures[index]] ? ': ' : null}
             { recipes[measures[index]] }
           </li>
         )

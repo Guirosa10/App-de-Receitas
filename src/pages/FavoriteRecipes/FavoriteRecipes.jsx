@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import React, { useEffect, useContext, useState } from 'react';
 import { Link } from 'react-router-dom';
 import AppContext from '../../context/Context/AppContext';
@@ -6,7 +7,13 @@ import UnfavoriteButton from '../../components/unfavoriteButton/UnfavoriteButton
 import ShareButton from '../../components/ShareButton/ShareButton';
 
 export default function FavoriteRecipes() {
-  const { setSearchRender, favorites, setFavorites } = useContext(AppContext);
+
+  const {
+    setSearchRender,
+    favorites,
+    isShowingMessage,
+    setIsShowing } = useContext(AppContext);
+
   const [data, setData] = useState([]);
 
   const getFavorites = () => {
@@ -18,9 +25,9 @@ export default function FavoriteRecipes() {
   }, []);
 
   useEffect(() => {
-    setSearchRender(false);
+    setSearchRender(true);
+    setIsShowing(false);
     getFavorites();
-  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [favorites]);
 
   const filterByFoods = () => {
@@ -34,75 +41,84 @@ export default function FavoriteRecipes() {
   };
 
   return (
-    <>
+    <main className="container-done">
       <Header title="Favorite Recipes" />
-      <button
-        data-testid="filter-by-all-btn"
-        type="button"
-        onClick={ getFavorites }
-      >
-        All
-      </button>
-      <button
-        data-testid="filter-by-food-btn"
-        type="button"
-        onClick={ filterByFoods }
-      >
-        Food
-      </button>
-      <button
-        data-testid="filter-by-drink-btn"
-        type="button"
-        onClick={ filterByDrinks }
-      >
-        Drink
-      </button>
-      {
-        data && data.map((favorite, index) => (
-          <div key={ favorite.id }>
-            <Link
-              to={
-                favorite
-                  .type === 'food' ? `/foods/${favorite.id}` : `/drinks/${favorite.id}`
-              }
-            >
-              <h2
+      <div className="container-category-button">
+        <button
+          className="category-button"
+          data-testid="filter-by-all-btn"
+          type="button"
+          onClick={ getFavorites }
+        >
+          All
+        </button>
+        <button
+          className="category-button"
+          data-testid="filter-by-food-btn"
+          type="button"
+          onClick={ filterByFoods }
+        >
+          Food
+        </button>
+        <button
+          className="category-button"
+          data-testid="filter-by-drink-btn"
+          type="button"
+          onClick={ filterByDrinks }
+        >
+          Drink
+        </button>
+      </div>
+      <div className="container-cards-done">
+        { data && data.map((favorite, index) => (
+          <section
+            key={ favorite.id }
+            className="card-done"
+          >
+            <div className="container-title-done">
+              <Link
+                to={ favorite.type === 'food'
+                  ? `/foods/${favorite.id}` : `/drinks/${favorite.id}` }
+              >
+                <img
+                  className="card-image-done"
+                  data-testid={ `${index}-horizontal-image` }
+                  src={ favorite.image }
+                  alt={ favorite.name }
+                />
+              </Link>
+              <h3
+                className="card-name-done"
                 data-testid={ `${index}-horizontal-name` }
               >
                 { favorite.name }
-
-              </h2>
-              <img
-                data-testid={ `${index}-horizontal-image` }
-                src={ favorite.image }
-                alt={ favorite.name }
-                width="360px"
-              />
-            </Link>
-            <p data-testid={ `${index}-horizontal-top-text` }>
-              { favorite.nationality }
-              { favorite.type === 'food' ? ' - ' : null}
+              </h3>
+              <div>
+                <ShareButton
+                  id={ favorite.id }
+                  datatestid={ `${index}-horizontal-share-btn` }
+                  type={ favorite.type }
+                />
+                <UnfavoriteButton
+                  datatestid={ `${index}-horizontal-favorite-btn` }
+                  id={ favorite.id }
+                />
+              </div>
+            </div>
+            <p
+              className="card-type-done"
+              data-testid={ `${index}-horizontal-top-text` }
+            >
               { favorite.category }
-              {
-                favorite.type === 'drink' && (
-                  <p>{ favorite.alcoholicOrNot }</p>
-                )
-              }
+              { isShowingMessage ? ' - ' : null }
+              { isShowingMessage ? <span className="category">Link copied!</span> : null}
             </p>
-            <ShareButton
-              id={ favorite.id }
-              datatestid={ `${index}-horizontal-share-btn` }
-              type={ favorite.type }
-            />
-            <UnfavoriteButton
-              datatestid={ `${index}-horizontal-favorite-btn` }
-              id={ favorite.id }
-            />
-          </div>
-        ))
-      }
-    </>
+            { favorite.type === 'food'
+              ? <p className="card-type-done">{favorite.nationality}</p>
+              : <p className="card-type-done">{favorite.alcoholicOrNot}</p> }
+          </section>
+        )) }
+      </div>
+    </main>
   );
 }
-
-// 'asdasdasdasdasdas'

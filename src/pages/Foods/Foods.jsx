@@ -1,11 +1,13 @@
 import React, { useContext, useEffect, useState } from 'react';
 import { fetchByIngredient, mealsAPI, mealsListAPI } from '../../services/mealsAPI';
 import AppContext from '../../context/Context/AppContext';
+import { mealsAPI, mealsListAPI } from '../../services/mealsAPI';
 import { RECIPES_LENGTH, CATEGORIES_LENGTH } from '../../helpers/constants';
 import Header from '../../components/Header/Header';
 import Recipes from '../../components/Recipes/Recipes';
 import ButtonCategories from '../../components/ButtonCategories/ButtonCategories';
 import Footer from '../../components/Footer/Footer';
+import './Foods.css';
 
 export default function Foods() {
   const {
@@ -48,7 +50,7 @@ export default function Foods() {
   }, []);
 
   return (
-    <main>
+    <main className="container-all">
       <Header title="Foods" />
       <ButtonCategories list={ mealsList } />
       <Recipes data={ meals || [] } />
