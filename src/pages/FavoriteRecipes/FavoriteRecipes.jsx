@@ -10,9 +10,13 @@ export default function FavoriteRecipes() {
   const [data, setData] = useState([]);
 
   const getFavorites = () => {
-    setFavorites(JSON.parse(localStorage.getItem('favoriteRecipes')));
     setData(favorites);
   };
+
+  useEffect(() => {
+    setFavorites(JSON.parse(localStorage.getItem('favoriteRecipes')));
+  }, []);
+
   useEffect(() => {
     setSearchRender(false);
     getFavorites();
