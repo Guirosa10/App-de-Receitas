@@ -12,6 +12,7 @@ function Provider({ children }) {
     .parse(localStorage.getItem('favoriteRecipes')));
   const [inProgressRecipes, setInProgressRecipes] = useState(JSON.parse(localStorage
     .getItem('inProgressRecipes')));
+  const [isShowing, setIsShowing] = useState(true);
 
   const value = {
     login,
@@ -28,6 +29,8 @@ function Provider({ children }) {
     setFavorites,
     inProgressRecipes,
     setInProgressRecipes,
+    isShowing,
+    setIsShowing,
   };
 
   return (

@@ -8,7 +8,7 @@ import SearchBar from '../SearchBar/SearchBar';
 import './Header.css';
 
 function Header({ title }) {
-  const { searchRender } = useContext(AppContext);
+  const { searchRender, isShowing } = useContext(AppContext);
   const [searchButton, setSearchButton] = useState(false);
   const [searchInput, setSearchInput] = useState('');
   const history = useHistory();
@@ -29,19 +29,19 @@ function Header({ title }) {
           />
         </button>
         <h2
-          className="title"
+          className="title-header"
           data-testid="page-title"
         >
           { title }
         </h2>
         { searchRender && (
           <button
-            className="search-button"
+            className={ isShowing ? 'search-button' : 'invisible' }
             type="button"
             onClick={ () => setSearchButton(!searchButton) }
           >
             <img
-              className="search-icon"
+              className={ isShowing ? 'search-icon' : 'invisible' }
               src={ searchIcon }
               data-testid="search-top-btn"
               alt="profileIcon"

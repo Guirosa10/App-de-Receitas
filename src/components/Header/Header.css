@@ -5,7 +5,6 @@
   background-color: red;
   display: flex;
   flex-direction: column;
-  justify-content: space-between;
   padding: 15px 15px 0;
   width: 100%;
 }
@@ -33,11 +32,11 @@
   width: 20px;
 }
 
-.title {
+.title-header {
   color: #ebc306;
   font-family: Galada , cursive;
   font-size: 40px;
-  margin-bottom: 0;
+  margin: 0;
   text-align: center;
 }
 

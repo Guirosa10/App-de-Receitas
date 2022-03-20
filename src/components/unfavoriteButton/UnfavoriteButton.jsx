@@ -15,8 +15,14 @@ export default function UnfavoriteButton({ id }) {
   };
 
   return (
-    <button type="button" id={ id } onClick={ removeFromFavorites }>
+    <button
+      className="like-button-done"
+      type="button"
+      id={ id }
+      onClick={ removeFromFavorites }
+    >
       <img
+        className="like-icon-done"
         src={ blackHeartIcon }
         alt="Like icon"
         data-testid="favorite-btn"
