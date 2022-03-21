@@ -12,6 +12,7 @@ export default function ExploreDrinksIngredients() {
     setSearchRender,
     setAutomaticFilterByIngredient,
     setIngredient,
+    setIsShowing,
   } = useContext(AppContext);
 
   const [ingredients, setIngredients] = useState([]);
@@ -29,38 +30,43 @@ export default function ExploreDrinksIngredients() {
   };
 
   useEffect(() => {
-    setSearchRender(false);
+    setSearchRender(true);
     getDrinkIngredients();
+    setIsShowing(false);
   }, []);
 
   return (
-    <div>
+    <main className="container-done>">
       <Header title="Explore Ingredients" />
-      {
-        ingredients && ingredients.map((ingredient, index) => (
+      <div className="container-explore-ingredients">
+        { ingredients && ingredients.map((ingredient, index) => (
           <div
             key={ ingredient.strIngredient1 }
+            className="card-explore"
             data-testid={ `${index}-ingredient-card` }
           >
             <button
+              className="card-explore-button"
               type="button"
               onClick={ () => handleRedirect(ingredient.strIngredient1) }
             >
               <h2
+                className="card-explore-title"
                 data-testid={ `${index}-card-name` }
               >
                 { ingredient.strIngredient1 }
               </h2>
               <img
+                className="card-explore-image"
                 data-testid={ `${index}-card-img` }
                 alt={ ingredient.strIngredient1 }
                 src={ `https://www.themealdb.com/images/ingredients/${ingredient.strIngredient1}-Small.png` }
               />
             </button>
           </div>
-        ))
-      }
+        ))}
+      </div>
       <Footer />
-    </div>
+    </main>
   );
 }

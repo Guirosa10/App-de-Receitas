@@ -6,7 +6,7 @@ import Footer from '../../components/Footer/Footer';
 import { fetchRandomMeal } from '../../services/mealsAPI';
 
 export default function ExploreFoods() {
-  const { setSearchRender } = useContext(AppContext);
+  const { setSearchRender, setIsShowing } = useContext(AppContext);
   const [id, setId] = useState('');
   const history = useHistory();
 
@@ -16,37 +16,43 @@ export default function ExploreFoods() {
   };
 
   useEffect(() => {
-    setSearchRender(false);
+    setSearchRender(true);
     redirectToRandomMeal();
-  }, [setSearchRender]);
+    setIsShowing(false);
+  }, [setSearchRender, setIsShowing]);
 
   return (
-    <div>
+    <main className="container-done>">
       <Header title="Explore Foods" />
-      <Link to="/explore/foods/ingredients">
+      <div className="container-explore-buttons">
+        <Link to="/explore/foods/ingredients">
+          <button
+            className="explore-buttons"
+            data-testid="explore-by-ingredient"
+            type="button"
+          >
+            By Ingredient
+          </button>
+        </Link>
+        <Link to="/explore/foods/nationalities">
+          <button
+            className="explore-buttons"
+            data-testid="explore-by-nationality"
+            type="button"
+          >
+            By Nationality
+          </button>
+        </Link>
         <button
-          data-testid="explore-by-ingredient"
+          className="explore-buttons"
+          data-testid="explore-surprise"
           type="button"
+          onClick={ () => history.push(`/foods/${id}`) }
         >
-          By Ingredient
+          Surprise me!
         </button>
-      </Link>
-      <Link to="/explore/foods/nationalities">
-        <button
-          data-testid="explore-by-nationality"
-          type="button"
-        >
-          By Nationality
-        </button>
-      </Link>
-      <button
-        data-testid="explore-surprise"
-        type="button"
-        onClick={ () => history.push(`/foods/${id}`) }
-      >
-        Surprise me!
-      </button>
+      </div>
       <Footer />
-    </div>
+    </main>
   );
 }

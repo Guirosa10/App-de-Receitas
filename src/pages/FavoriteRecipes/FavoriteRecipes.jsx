@@ -7,7 +7,6 @@ import UnfavoriteButton from '../../components/unfavoriteButton/UnfavoriteButton
 import ShareButton from '../../components/ShareButton/ShareButton';
 
 export default function FavoriteRecipes() {
-
   const {
     setSearchRender,
     favorites,

@@ -66,7 +66,7 @@ function Profile() {
           Favorite Recipes
         </button>
         <button
-          className="profile-buttons"
+          className="profile-buttons-logout"
           type="button"
           data-testid="profile-logout-btn"
           onClick={ clearLocalStorage }

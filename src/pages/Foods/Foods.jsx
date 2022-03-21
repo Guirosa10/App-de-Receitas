@@ -1,7 +1,6 @@
 import React, { useContext, useEffect, useState } from 'react';
-import { fetchByIngredient, mealsAPI, mealsListAPI } from '../../services/mealsAPI';
 import AppContext from '../../context/Context/AppContext';
-import { mealsAPI, mealsListAPI } from '../../services/mealsAPI';
+import { fetchByIngredient, mealsAPI, mealsListAPI } from '../../services/mealsAPI';
 import { RECIPES_LENGTH, CATEGORIES_LENGTH } from '../../helpers/constants';
 import Header from '../../components/Header/Header';
 import Recipes from '../../components/Recipes/Recipes';
