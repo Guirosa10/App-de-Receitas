@@ -11,7 +11,9 @@ export default function FavoriteRecipes() {
     setSearchRender,
     favorites,
     isShowingMessage,
-    setIsShowing } = useContext(AppContext);
+    setIsShowing,
+    setFavorites,
+  } = useContext(AppContext);
 
   const [data, setData] = useState([]);
 

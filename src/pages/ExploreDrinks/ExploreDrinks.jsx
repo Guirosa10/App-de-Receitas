@@ -6,7 +6,7 @@ import Footer from '../../components/Footer/Footer';
 import { fetchRandomDrinks } from '../../services/cocktailsAPI';
 
 export default function ExploreDrinks() {
-  const { setSearchRender } = useContext(AppContext);
+  const { setSearchRender, setIsShowing } = useContext(AppContext);
   const [id, setId] = useState('');
   const history = useHistory();
 
@@ -16,29 +16,34 @@ export default function ExploreDrinks() {
   };
 
   useEffect(() => {
-    setSearchRender(false);
+    setSearchRender(true);
     redirectToRandomDrink();
-  }, [setSearchRender]);
+    setIsShowing(false);
+  }, [setSearchRender, setIsShowing]);
 
   return (
-    <div>
+    <main className="container-done>">
       <Header title="Explore Drinks" />
-      <Link to="/explore/drinks/ingredients">
+      <div className="container-explore-buttons">
+        <Link to="/explore/drinks/ingredients">
+          <button
+            className="explore-buttons"
+            data-testid="explore-by-ingredient"
+            type="button"
+          >
+            By Ingredient
+          </button>
+        </Link>
         <button
-          data-testid="explore-by-ingredient"
+          className="explore-buttons"
+          data-testid="explore-surprise"
           type="button"
+          onClick={ () => history.push(`/drinks/${id}`) }
         >
-          By Ingredient
+          Surprise me!
         </button>
-      </Link>
-      <button
-        data-testid="explore-surprise"
-        type="button"
-        onClick={ () => history.push(`/drinks/${id}`) }
-      >
-        Surprise me!
-      </button>
+      </div>
       <Footer />
-    </div>
+    </main>
   );
 }
