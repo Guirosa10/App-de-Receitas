@@ -1,18 +1,10 @@
 import React, { useContext } from 'react';
-import { Link, Redirect } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import propTypes from 'prop-types';
 import AppContext from '../../context/Context/AppContext';
 
 const Recipes = ({ data }) => {
   const { isFood } = useContext(AppContext);
-
-  if (data.length === 1) {
-    return (
-      <Redirect
-        to={ isFood ? `/foods/${data[0].idMeal}` : `/drinks/${data[0].idDrink}` }
-      />
-    );
-  }
 
   return (
     <div className="container-cards">
